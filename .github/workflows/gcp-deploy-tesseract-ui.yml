@@ -54,7 +54,7 @@ jobs:
             && ./create-cloud-build.sh \
               ${{ env.TESSERACT_URL }} \
               ${{ env.GCP_PROJECT_ID }} \
-              ${{ env.ARTIFACT_REGISTRY_NAME }} \
+              ${{ env.GCP_ARTIFACT_REGISTRY_REPO_NAME }} \
               ${{ env.IMAGE_NAME }} \
               > cloudbuild.yml
 
@@ -68,7 +68,7 @@ jobs:
       - name: Deploy Image to Cloud Run
         run: |-
           gcloud run deploy ${{ env.TESSERACT_SERVICE_NAME }} \
-            --image=us-central1-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.ARTIFACT_REGISTRY_NAME }}/${{ env.IMAGE_NAME }} \
+            --image=us-central1-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REGISTRY_REPO_NAME }}/${{ env.IMAGE_NAME }} \
             --port=80 \
             --allow-unauthenticated \
             --region=us-central1
