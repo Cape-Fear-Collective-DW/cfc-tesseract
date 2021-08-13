@@ -69,6 +69,6 @@ jobs:
             --image=us-central1-docker.pkg.dev/${{env.GCP_PROJECT_ID}}/${{env.GCP_ARTIFACT_REGISTRY_REPO_NAME}}/${{env.IMAGE_NAME}}:latest-dev \
             --region=us-central1
         env:
-          TESSERACT_DATABASE_URL: clickhouse://readonly@34.67.20.155:9000/cfc_test?pool_max=300&keepalive=120s #${{secrets.TESSERACT_DATABASE_URL}}
+          TESSERACT_DATABASE_URL: ${{secrets.TESSERACT_DATABASE_URL}}
           TESSERACT_DEBUG: ${{env.TESSERACT_DEBUG}}
           RUST_LOG: ${{env.TESSERACT_RUST_LOG}}
