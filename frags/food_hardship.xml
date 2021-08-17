@@ -1,5 +1,4 @@
-<Schema name="cfc-database">
-
+<Schema name="cfc" default_locale="en">
     <Cube name="food_hardship">
         <Annotation name="source_name">USDA, Cape Fear Collective</Annotation>
         <Annotation name="source_description">United States Department of Agriculture</Annotation>
