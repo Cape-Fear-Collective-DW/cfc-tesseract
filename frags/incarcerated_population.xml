@@ -1,16 +1,4 @@
-<Schema name="cfc-database">
-
-    <SharedDimension name="County Level" type="geo">
-        <Hierarchy name="County Level">
-            <Table name="dim_shared_county" />
-
-            <Level name="Country" key_column="country_id" name_column="country" key_type="text" />
-            <Level name="State" key_column="state_id" name_column="state" key_type="text" />
-            <Level name="County" key_column="county_id" name_column="county" key_type="text" />
-        </Hierarchy>
-    </SharedDimension>
-
-
+<Schema name="cfc" default_locale="en">
     <Cube name="incarcerated_population">
         <Annotation name="source_name">USDA, Cape Fear Collective</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
