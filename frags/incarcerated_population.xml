@@ -5,7 +5,6 @@
 
         <Table name="incarcerated_population" primary_key="county_id" />
 
-        <DimensionUsage foreign_key="county_id" source="County Level" name="County Level" />
         <Dimension name="Year" foreign_key="year">
             <Hierarchy name="Year">
                 <Level name="Year" key_column="year" key_type="nontext" />
