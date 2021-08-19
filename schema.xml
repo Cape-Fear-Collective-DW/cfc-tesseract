@@ -9,7 +9,12 @@
         <Table name="food_hardship" primary_key="tract_id" />
 
         <DimensionUsage foreign_key="tract_id" source="Ubigeo" name="Ubigeo" />
-        <DimensionUsage foreign_key="year" source="Year" name="Years" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
 
         <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
             <Hierarchy name="Cape Fear Member" primary_key="id">
