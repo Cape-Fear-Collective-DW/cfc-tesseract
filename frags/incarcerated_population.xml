@@ -1,6 +1,8 @@
 <Schema name="cfc" default_locale="en">
     <Cube name="incarcerated_population">
-        <Annotation name="source_name">USDA, Cape Fear Collective</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_description">Incarcerated population by county</Annotation>
+        <Annotation name="dataset_name">Incarcerated Population</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="incarcerated_population" primary_key="county_id" />
