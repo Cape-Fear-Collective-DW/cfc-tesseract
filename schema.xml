@@ -1,14 +1,11 @@
 <Schema name="cfc-database">
 
-    <Cube name="food_hardship">
+    <Cube name="incarcerated_population">
         <Annotation name="source_name">USDA, Cape Fear Collective</Annotation>
-        <Annotation name="source_description">United States Department of Agriculture</Annotation>
-        <Annotation name="dataset_name">Access to healthy food score and food desert status</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
-        <Table name="food_hardship" primary_key="tract_id" />
+        <Table name="incarcerated_population" primary_key="county_id" />
 
-        <DimensionUsage foreign_key="tract_id" source="Ubigeo" name="Ubigeo" />
         <Dimension name="Year" foreign_key="year">
             <Hierarchy name="Year">
                 <Level name="Year" key_column="year" key_type="nontext" />
@@ -33,26 +30,72 @@
             </Hierarchy>
         </Dimension>
 
-        <Dimension name="Food Desert Notes" foreign_key="food_desert_notes">
-            <Hierarchy name="Food Desert Notes" primary_key="id">
-                <InlineTable alias="dim_food_desert_notes">
+        <Dimension name="Gender" foreign_key="gender_id">
+            <Hierarchy name="Gender" primary_key="id">
+                <InlineTable alias="dim_gender">
                     <ColumnDef name="id" key_type="nontext" />
                     <ColumnDef name="name" key_type="text" />
                     <Row>
                         <Value column="id">1</Value>
-                        <Value column="name">USDA classification</Value>
+                        <Value column="name">Male</Value>
                     </Row>
                     <Row>
                         <Value column="id">2</Value>
-                        <Value column="name">CFC prediction from logistic r</Value>
+                        <Value column="name">Female</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">All</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Food Desert Notes" key_column="id" name_column="name" />
+                <Level name="Gender" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
-        <Measure name="Food Hardship Score" column="food_hardship_score" aggregator="avg" />
-        <Measure name="Food Desert Status" column="food_desert_status" aggregator="sum" />
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" />
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">15</Value>
+                        <Value column="name">American Indian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">99</Value>
+                        <Value column="name">Unknown</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
 
     </Cube>
 </Schema>
