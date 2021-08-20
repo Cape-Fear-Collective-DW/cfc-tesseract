@@ -1,10 +1,38 @@
 <Schema name="cfc-database">
 
+    <SharedDimension name="County Level" type="geo">
+        <Hierarchy name="County Level">
+            <Table name="dim_shared_county" />
+
+            <Level name="Country" key_column="country_id" name_column="country" key_type="text" />
+            <Level name="State" key_column="state_id" name_column="state" key_type="text" />
+            <Level name="County" key_column="county_id" name_column="county" key_type="text" />
+        </Hierarchy>
+    </SharedDimension>
+
+    <SharedDimension name="Date Day" type="time">
+        <Hierarchy name="Date" primary_key="date_id">
+            <Table name="dim_shared_date_month_day" />
+            <Level name="Year" key_column="year" />
+            <Level name="Quarter" key_column="quarter_id" name_column="quarter">
+                <Property name="Quarter ES" column="quarter" caption_set="es" />
+            </Level>
+            <Level name="Month" key_column="month_id" name_column="month">
+                <Property name="Month ES" column="month" caption_set="es" />
+            </Level>
+            <Level name="Date" key_column="date_id" name_column="date">
+                <Property name="Date ES" column="date" caption_set="es" />
+            </Level>
+        </Hierarchy>
+    </SharedDimension>
+
     <Cube name="incarcerated_population">
         <Annotation name="source_name">USDA, Cape Fear Collective</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="incarcerated_population" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="County Level" />
 
         <Dimension name="Year" foreign_key="year">
             <Hierarchy name="Year">
