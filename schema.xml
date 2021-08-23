@@ -56,7 +56,7 @@
                         <Value column="name">Member</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+                <Level name="Cape Fear Member" key_column="id" key_type="nontext" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -159,7 +159,7 @@
                         <Value column="name">Member</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+                <Level name="Cape Fear Member" key_column="id" key_type="nontext" name_column="name" />
             </Hierarchy>
         </Dimension>
 
