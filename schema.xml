@@ -10,6 +10,17 @@
         </Hierarchy>
     </SharedDimension>
 
+    <SharedDimension name="Tract Level" type="geo">
+        <Hierarchy name="Tract Level">
+            <Table name="dim_shared_tract" />
+
+            <Level name="Country" key_column="country_id" name_column="country" key_type="text" />
+            <Level name="State" key_column="state_id" name_column="state" key_type="text" />
+            <Level name="County" key_column="county_id" name_column="county" key_type="text" />
+            <Level name="Tract" key_column="tract_id" name_column="tract" key_type="text" />
+        </Hierarchy>
+    </SharedDimension>
+
     <SharedDimension name="Date Day" type="time">
         <Hierarchy name="Date" primary_key="date_id">
             <Table name="dim_shared_date_month_day" />
@@ -25,6 +36,117 @@
             </Level>
         </Hierarchy>
     </SharedDimension>
+
+    <Cube name="uninsured_population">
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_description">Uninsured population by tract</Annotation>
+        <Annotation name="dataset_name">Uninsured population</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
+
+        <Table name="uninsured_population" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="County Level" />
+        <DimensionUsage foreign_key="date_id" source="Date Day" name="Date Day" />
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White non Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">2 or more races</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Proyections" foreign_key="has_projections">
+            <Hierarchy name="Proyections" primary_key="id">
+                <InlineTable alias="dim_has_projections">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Has not</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Has projections</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Proyections" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Projection Lowerbound" column="projection_lowerbound" aggregator="avg" />
+        <Measure name="Projection Upperbound" column="projection_upperbound" aggregator="avg" />
+        <Measure name="Indicator Percentage First Quartile" column="indicator_pct_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Percentage Third Quartile" column="indicator_pct_3rd_quartile" aggregator="avg" />
+
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
 
     <Cube name="incarcerated_population">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
@@ -120,12 +242,12 @@
             </Hierarchy>
         </Dimension>
 
-        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
-        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
-        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
-        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
-        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
-        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
 
     </Cube>
 
@@ -181,7 +303,7 @@
                         <Value column="name">White non Hispanic</Value>
                     </Row>
                     <Row>
-                        <Value column="id">123</Value>
+                        <Value column="id">13</Value>
                         <Value column="name">Other non Hispanic</Value>
                     </Row>
                     <Row>
@@ -257,12 +379,14 @@
             </Hierarchy>
         </Dimension>
 
-        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
-        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
-        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
-        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
-        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
-        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
 
     </Cube>
+
+    
 </Schema>
