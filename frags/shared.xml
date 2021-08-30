@@ -17,7 +17,7 @@
             <Level name="Country" key_column="country_id" name_column="country" key_type="text" />
             <Level name="State" key_column="state_id" name_column="state" key_type="text" />
             <Level name="County" key_column="county_id" name_column="county" key_type="text" />
-            <Level name="Tract" key_column="tract_id" name_column="tract" key_type="text" />
+            <Level name="Tract" key_column="tract_id" name_column="tract_fips" key_type="text" />
         </Hierarchy>
     </SharedDimension>
 
