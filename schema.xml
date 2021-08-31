@@ -387,7 +387,7 @@
         <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
 
     </Cube>
-    
+
     <Cube name="prenatal_care">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Prenatal care by county</Annotation>
@@ -531,6 +531,175 @@
         <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
         <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
         <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="infant_mortality">
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_description">Infant mortality by county</Annotation>
+        <Annotation name="dataset_name">Infant Mortality</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
+
+        <Table name="infant_mortality" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="County Level" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" />
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">Africanamerican non Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White non Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">13</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Health Situation" foreign_key="measure_id">
+            <Hierarchy name="Health Situation" primary_key="id">
+                <InlineTable alias="dim_measure">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Births</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Deaths</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Health Situation" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Health Cause" foreign_key="category_id">
+            <Hierarchy name="Health Cause" primary_key="id">
+                <InlineTable alias="dim_category">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Healthy</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Infection</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Metabolic disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">Nervous disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Circulatory disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">Respiratory disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Genitourinary disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">8</Value>
+                        <Value column="name">Perinatal condition</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Congenital abnormality</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">Miscellaneous</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">External coditions</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Neoplasm</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">13</Value>
+                        <Value column="name">Blood disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">Digestive disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">15</Value>
+                        <Value column="name">Musculoskeletal disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">16</Value>
+                        <Value column="name">Mental disorder</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">17</Value>
+                        <Value column="name">Ear disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">18</Value>
+                        <Value column="name">Pregnancy related</Value>
+                    </Row>
+
+                </InlineTable>
+                <Level name="Health Cause" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Total" column= "value" aggregator= "sum" />
 
     </Cube>
 
