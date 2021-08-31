@@ -1,11 +1,11 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="prenatal_care">
+    <Cube name="teen_births">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
-        <Annotation name="source_description">Prenatal care by county</Annotation>
-        <Annotation name="dataset_name">Prenatal Care</Annotation>
+        <Annotation name="source_description">Teen births by county</Annotation>
+        <Annotation name="dataset_name">Teen Births</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
-        <Table name="prenatal_care" primary_key="county_id" />
+        <Table name="teen_births" primary_key="county_id" />
 
         <DimensionUsage foreign_key="county_id" source="County Level" name="County Level" />
 
@@ -39,8 +39,8 @@
                     <ColumnDef name="id" key_type="nontext" />
                     <ColumnDef name="name" key_type="text" />
                     <Row>
-                        <Value column="id">6</Value>
-                        <Value column="name">Africanamerican non Hispanic</Value>
+                        <Value column="id">5</Value>
+                        <Value column="name">Africanamerican</Value>
                     </Row>
                     <Row>
                         <Value column="id">9</Value>
@@ -52,7 +52,7 @@
                     </Row>
                     <Row>
                         <Value column="id">13</Value>
-                        <Value column="name">Other non Hispanic</Value>
+                        <Value column="name">Other</Value>
                     </Row>
                     <Row>
                         <Value column="id">98</Value>

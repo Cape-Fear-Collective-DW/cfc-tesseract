@@ -2,7 +2,7 @@
     <Cube name="uninsured_population">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Uninsured population by tract</Annotation>
-        <Annotation name="dataset_name">Uninsured population</Annotation>
+        <Annotation name="dataset_name">Uninsured Population</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="uninsured_population" primary_key="tract_id" />
