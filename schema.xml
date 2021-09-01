@@ -46,7 +46,12 @@
         <Table name="uninsured_population" primary_key="tract_id" />
 
         <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Tract Level" />
-        <DimensionUsage foreign_key="date_id" source="Date Day" name="Date Day" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
 
         <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
             <Hierarchy name="Cape Fear Member" primary_key="id">
@@ -116,21 +121,91 @@
             </Hierarchy>
         </Dimension>
 
-        <Dimension name="Proyections" foreign_key="has_projections">
-            <Hierarchy name="Proyections" primary_key="id">
-                <InlineTable alias="dim_has_projections">
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="uninsured_projections">
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_description">Uninsured population projections by county</Annotation>
+        <Annotation name="dataset_name">Uninsured Population</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
+
+        <Table name="uninsured_projections" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="County Level" />
+        <DimensionUsage foreign_key="date_id" source="Date Day" name="Date Day" />
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
                     <ColumnDef name="name" key_type="text" />
                     <Row>
                         <Value column="id">0</Value>
-                        <Value column="name">Has not</Value>
+                        <Value column="name">Not a member</Value>
                     </Row>
                     <Row>
                         <Value column="id">1</Value>
-                        <Value column="name">Has projections</Value>
+                        <Value column="name">Member</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Proyections" key_column="id" name_column="name" />
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White non Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">2 or more races</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 

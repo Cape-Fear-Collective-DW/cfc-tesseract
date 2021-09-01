@@ -1,19 +1,14 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="uninsured_population">
+    <Cube name="uninsured_projections">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
-        <Annotation name="source_description">Uninsured population by tract</Annotation>
+        <Annotation name="source_description">Uninsured population projections by county</Annotation>
         <Annotation name="dataset_name">Uninsured Population</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
-        <Table name="uninsured_population" primary_key="tract_id" />
+        <Table name="uninsured_projections" primary_key="county_id" />
 
-        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Tract Level" />
-
-        <Dimension name="Year" foreign_key="year">
-            <Hierarchy name="Year">
-                <Level name="Year" key_column="year" key_type="nontext" />
-            </Hierarchy>
-        </Dimension>
+        <DimensionUsage foreign_key="county_id" source="County Level" name="County Level" />
+        <DimensionUsage foreign_key="date_id" source="Date Day" name="Date Day" />
 
         <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
             <Hierarchy name="Cape Fear Member" primary_key="id">
@@ -82,6 +77,11 @@
                 <Level name="Race" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
+
+        <Measure name="Projection Lowerbound" column="projection_lowerbound" aggregator="avg" />
+        <Measure name="Projection Upperbound" column="projection_upperbound" aggregator="avg" />
+        <Measure name="Indicator Percentage First Quartile" column="indicator_pct_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Percentage Third Quartile" column="indicator_pct_3rd_quartile" aggregator="avg" />
 
         <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
         <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
