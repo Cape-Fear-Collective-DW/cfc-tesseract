@@ -19,7 +19,7 @@
             <Hierarchy name="Cape Fear Member" primary_key="id">
                 <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">0</Value>
                         <Value column="name">Not a member</Value>
@@ -37,7 +37,7 @@
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">6</Value>
                         <Value column="name">Africanamerican non Hispanic</Value>

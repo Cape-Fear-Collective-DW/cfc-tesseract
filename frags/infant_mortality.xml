@@ -19,7 +19,7 @@
             <Hierarchy name="Cape Fear Member" primary_key="id">
                 <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">0</Value>
                         <Value column="name">Not a member</Value>
@@ -37,7 +37,7 @@
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">6</Value>
                         <Value column="name">Africanamerican non Hispanic</Value>
@@ -67,7 +67,7 @@
             <Hierarchy name="Health Situation" primary_key="id">
                 <InlineTable alias="dim_measure">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">Births</Value>
@@ -85,7 +85,7 @@
             <Hierarchy name="Health Cause" primary_key="id">
                 <InlineTable alias="dim_category">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">Healthy</Value>
@@ -158,7 +158,6 @@
                         <Value column="id">18</Value>
                         <Value column="name">Pregnancy related</Value>
                     </Row>
-
                 </InlineTable>
                 <Level name="Health Cause" key_column="id" name_column="name" />
             </Hierarchy>

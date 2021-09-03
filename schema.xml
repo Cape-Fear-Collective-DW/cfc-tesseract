@@ -75,7 +75,7 @@
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">American Indian or Alaskan Native</Value>
@@ -145,7 +145,7 @@
             <Hierarchy name="Cape Fear Member" primary_key="id">
                 <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">0</Value>
                         <Value column="name">Not a member</Value>
@@ -163,7 +163,7 @@
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">American Indian or Alaskan Native</Value>
@@ -243,7 +243,7 @@
             <Hierarchy name="Cape Fear Member" primary_key="id">
                 <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">0</Value>
                         <Value column="name">Not a member</Value>
@@ -261,7 +261,7 @@
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">American Indian or Alaskan Native</Value>
@@ -311,7 +311,7 @@
             <Hierarchy name="Gender" primary_key="id">
                 <InlineTable alias="dim_gender">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">Male</Value>
@@ -333,7 +333,7 @@
             <Hierarchy name="Age" primary_key="id">
                 <InlineTable alias="dim_age">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">0</Value>
                         <Value column="name">Olders than 16 years old</Value>
@@ -399,7 +399,7 @@
             <Hierarchy name="Cape Fear Member" primary_key="id">
                 <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">0</Value>
                         <Value column="name">Not a member</Value>
@@ -417,7 +417,7 @@
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">American Indian or Alaskan Native</Value>
@@ -467,7 +467,7 @@
             <Hierarchy name="Gender" primary_key="id">
                 <InlineTable alias="dim_gender">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">Male</Value>
@@ -489,7 +489,7 @@
             <Hierarchy name="Age" primary_key="id">
                 <InlineTable alias="dim_age">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">0</Value>
                         <Value column="name">Olders than 16 years old</Value>
@@ -565,7 +565,7 @@
             <Hierarchy name="Cape Fear Member" primary_key="id">
                 <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">0</Value>
                         <Value column="name">Not a member</Value>
@@ -575,7 +575,7 @@
                         <Value column="name">Member</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Cape Fear Member" key_column="id" key_type="nontext" name_column="name" />
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -583,7 +583,7 @@
             <Hierarchy name="Gender" primary_key="id">
                 <InlineTable alias="dim_gender">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">Male</Value>
@@ -605,7 +605,7 @@
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">3</Value>
                         <Value column="name">Asian</Value>
@@ -639,19 +639,19 @@
             </Hierarchy>
         </Dimension>
 
-        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
-        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
-        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
-        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
-        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
-        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
 
     </Cube>
 
     <Cube name="overdose_deaths">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Overdose deaths by county</Annotation>
-        <Annotation name="dataset_name">Overdose Deaths</Annotation>
+        <Annotation name="dataset_name">Overdose deaths</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="overdose_deaths" primary_key="county_id" />
@@ -668,7 +668,7 @@
             <Hierarchy name="Cape Fear Member" primary_key="id">
                 <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">0</Value>
                         <Value column="name">Not a member</Value>
@@ -678,7 +678,7 @@
                         <Value column="name">Member</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Cape Fear Member" key_column="id" key_type="nontext" name_column="name" />
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -686,7 +686,7 @@
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">6</Value>
                         <Value column="name">Africanamerican non Hispanic</Value>
@@ -716,7 +716,7 @@
             <Hierarchy name="Death Cause" primary_key="id">
                 <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">Assault</Value>
@@ -746,7 +746,7 @@
             <Hierarchy name="Drug Related" primary_key="id">
                 <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">antiepileptic</Value>
@@ -776,12 +776,12 @@
             </Hierarchy>
         </Dimension>
 
-        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
-        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
-        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
-        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
-        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
-        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
 
     </Cube>
 
@@ -805,7 +805,7 @@
             <Hierarchy name="Cape Fear Member" primary_key="id">
                 <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">0</Value>
                         <Value column="name">Not a member</Value>
@@ -823,7 +823,7 @@
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">6</Value>
                         <Value column="name">Africanamerican non Hispanic</Value>
@@ -878,7 +878,7 @@
             <Hierarchy name="Cape Fear Member" primary_key="id">
                 <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">0</Value>
                         <Value column="name">Not a member</Value>
@@ -896,7 +896,7 @@
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">5</Value>
                         <Value column="name">Africanamerican</Value>
@@ -951,7 +951,7 @@
             <Hierarchy name="Cape Fear Member" primary_key="id">
                 <InlineTable alias="dim_cape_fear_member">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">0</Value>
                         <Value column="name">Not a member</Value>
@@ -969,7 +969,7 @@
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">6</Value>
                         <Value column="name">Africanamerican non Hispanic</Value>
@@ -999,7 +999,7 @@
             <Hierarchy name="Health Situation" primary_key="id">
                 <InlineTable alias="dim_measure">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">Births</Value>
@@ -1017,7 +1017,7 @@
             <Hierarchy name="Health Cause" primary_key="id">
                 <InlineTable alias="dim_category">
                     <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
                         <Value column="name">Healthy</Value>
@@ -1090,7 +1090,6 @@
                         <Value column="id">18</Value>
                         <Value column="name">Pregnancy related</Value>
                     </Row>
-
                 </InlineTable>
                 <Level name="Health Cause" key_column="id" name_column="name" />
             </Hierarchy>
