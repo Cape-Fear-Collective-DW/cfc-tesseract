@@ -52,7 +52,7 @@
                     </Row>
                     <Row>
                         <Value column="id">13</Value>
-                        <Value column="name">Other</Value>
+                        <Value column="name">Other non Hispanic</Value>
                     </Row>
                     <Row>
                         <Value column="id">98</Value>
