@@ -2,7 +2,7 @@
     <Cube name="overdose_deaths">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Overdose deaths by county</Annotation>
-        <Annotation name="dataset_name">Overdose deaths</Annotation>
+        <Annotation name="dataset_name">Overdose Deaths</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="overdose_deaths" primary_key="county_id" />
@@ -100,27 +100,27 @@
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">1</Value>
-                        <Value column="name">antiepileptic</Value>
+                        <Value column="name">Antiepileptic</Value>
                     </Row>
                     <Row>
                         <Value column="id">2</Value>
-                        <Value column="name">narcotics</Value>
+                        <Value column="name">Narcotics</Value>
                     </Row>
                     <Row>
                         <Value column="id">3</Value>
-                        <Value column="name">ansdrugs</Value>
+                        <Value column="name">Ansdrugs</Value>
                     </Row>
                     <Row>
                         <Value column="id">4</Value>
-                        <Value column="name">nonopioid</Value>
+                        <Value column="name">Nonopioid</Value>
                     </Row>
                     <Row>
                         <Value column="id">5</Value>
-                        <Value column="name">other</Value>
+                        <Value column="name">Other</Value>
                     </Row>
                     <Row>
                         <Value column="id">9</Value>
-                        <Value column="name">all</Value>
+                        <Value column="name">All</Value>
                     </Row>
                 </InlineTable>
                 <Level name="Drug Related" key_column="id" name_column="name" />
