@@ -1,5 +1,5 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="third_grade_reading">
+    <Cube name="Third Grade Reading">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Third grade reading population by county</Annotation>
         <Annotation name="dataset_name">Third Grade Reading</Annotation>

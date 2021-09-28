@@ -37,7 +37,7 @@
         </Hierarchy>
     </SharedDimension>
 
-    <Cube name="uninsured_population">
+    <Cube name="Uninsured Population">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Uninsured population by tract</Annotation>
         <Annotation name="dataset_name">Uninsured Population</Annotation>
@@ -130,7 +130,7 @@
 
     </Cube>
 
-    <Cube name="uninsured_projections">
+    <Cube name="Uninsured Projections">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Uninsured population projections by county</Annotation>
         <Annotation name="dataset_name">Uninsured Population</Annotation>
@@ -223,7 +223,7 @@
 
     </Cube>
 
-    <Cube name="unemployment_population">
+    <Cube name="Unemployment Population">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Unemployment population by tract</Annotation>
         <Annotation name="dataset_name">Unemployment Population</Annotation>
@@ -384,7 +384,7 @@
 
     </Cube>
 
-    <Cube name="unemployment_projections">
+    <Cube name="Unemployment Projections">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Unemployment population projections by county</Annotation>
         <Annotation name="dataset_name">Unemployment Population</Annotation>
@@ -545,10 +545,10 @@
 
     </Cube>
 
-    <Cube name="poverty_population">
+    <Cube name="Poverty Population">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Population living in poverty by tract</Annotation>
-        <Annotation name="dataset_name">Population living in poverty</Annotation>
+        <Annotation name="dataset_name">Population Living in Poverty</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="poverty_population" primary_key="tract_id" />
@@ -772,10 +772,10 @@
 
     </Cube>
 
-    <Cube name="poverty_projections">
+    <Cube name="Poverty Projections">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Population living in poverty projections by county</Annotation>
-        <Annotation name="dataset_name">Population living in poverty</Annotation>
+        <Annotation name="dataset_name">Population Living in Poverty</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="poverty_projections" primary_key="county_id" />
@@ -999,7 +999,7 @@
 
     </Cube>
 
-    <Cube name="incarcerated_population">
+    <Cube name="Incarcerated Population">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Incarcerated population by county</Annotation>
         <Annotation name="dataset_name">Incarcerated Population</Annotation>
@@ -1102,7 +1102,7 @@
 
     </Cube>
 
-    <Cube name="overdose_deaths">
+    <Cube name="Overdose Deaths">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Overdose deaths by county</Annotation>
         <Annotation name="dataset_name">Overdose Deaths</Annotation>
@@ -1239,7 +1239,7 @@
 
     </Cube>
 
-    <Cube name="prenatal_care">
+    <Cube name="Prenatal Care">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Prenatal care by county</Annotation>
         <Annotation name="dataset_name">Prenatal Care</Annotation>
@@ -1312,7 +1312,7 @@
 
     </Cube>
 
-    <Cube name="teen_births">
+    <Cube name="Teen Births">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Teen births by county</Annotation>
         <Annotation name="dataset_name">Teen Births</Annotation>
@@ -1385,7 +1385,7 @@
 
     </Cube>
 
-    <Cube name="infant_mortality">
+    <Cube name="Infant Mortality">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Infant mortality by county</Annotation>
         <Annotation name="dataset_name">Infant Mortality</Annotation>
@@ -1553,7 +1553,7 @@
 
     </Cube>
 
-    <Cube name="access_exercise">
+    <Cube name="Access to Exercise">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Access to exercise opportunities by county</Annotation>
         <Annotation name="dataset_name">Access to Exercise Opportunities </Annotation>
@@ -1596,7 +1596,7 @@
 
     </Cube>
 
-    <Cube name="third_grade_reading">
+    <Cube name="Third Grade Reading">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Third grade reading population by county</Annotation>
         <Annotation name="dataset_name">Third Grade Reading</Annotation>
@@ -1735,7 +1735,7 @@
 
     </Cube>
 
-    <Cube name="suicides">
+    <Cube name="Suicides">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Suicides by county</Annotation>
         <Annotation name="dataset_name">Suicides</Annotation>
@@ -1812,7 +1812,7 @@
 
     </Cube>
 
-    <Cube name="hiv_diagnoses">
+    <Cube name="HIV Diagnoses">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">HIV diagnoses by county</Annotation>
         <Annotation name="dataset_name">HIV Diagnoses</Annotation>
@@ -1900,7 +1900,7 @@
     <Cube name="Life expectancy">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Life expectancy by tract</Annotation>
-        <Annotation name="dataset_name">Life expectancy</Annotation>
+        <Annotation name="dataset_name">Life Expectancy</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="life_expectancy" primary_key="tract_id" />
@@ -1962,6 +1962,49 @@
                     </Row>
                 </InlineTable>
                 <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Value" column="indicator_value" aggregator="sum" />
+        <Measure name="Indicator Value First Quartile" column="indicator_value_1st_quartile" aggregator="sum" />
+        <Measure name="Indicator Value Third Quartile" column="indicator_value_3rd_quartile" aggregator="avg" />
+        <Measure name="Indicator Value Median" column="indicator_value_median" aggregator="avg" />
+        <Measure name="Indicator Value Apc" column="indicator_value_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="Access Healthy Food">
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_description">Access to healthy food by tract</Annotation>
+        <Annotation name="dataset_name">Access to Healthy Food</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
+
+        <Table name="access_to_healthy_foods" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Tract Level" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 

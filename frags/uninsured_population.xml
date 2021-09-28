@@ -1,5 +1,5 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="uninsured_population">
+    <Cube name="Uninsured Population">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Uninsured population by tract</Annotation>
         <Annotation name="dataset_name">Uninsured Population</Annotation>

@@ -1,13 +1,13 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="Access to Exercise">
+    <Cube name="Access Healthy Food">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
-        <Annotation name="source_description">Access to exercise opportunities by county</Annotation>
-        <Annotation name="dataset_name">Access to Exercise Opportunities </Annotation>
+        <Annotation name="source_description">Access to healthy food by tract</Annotation>
+        <Annotation name="dataset_name">Access to Healthy Food</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
-        <Table name="access_exercise" primary_key="county_id" />
+        <Table name="access_to_healthy_foods" primary_key="tract_id" />
 
-        <DimensionUsage foreign_key="county_id" source="County Level" name="County Level" />
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Tract Level" />
 
         <Dimension name="Year" foreign_key="year">
             <Hierarchy name="Year">
@@ -33,12 +33,12 @@
             </Hierarchy>
         </Dimension>
 
-        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
-        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
-        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
-        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
-        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
-        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+        <Measure name="Indicator Value" column="indicator_value" aggregator="sum" />
+        <Measure name="Indicator Value First Quartile" column="indicator_value_1st_quartile" aggregator="sum" />
+        <Measure name="Indicator Value Third Quartile" column="indicator_value_3rd_quartile" aggregator="avg" />
+        <Measure name="Indicator Value Median" column="indicator_value_median" aggregator="avg" />
+        <Measure name="Indicator Value Apc" column="indicator_value_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
 
     </Cube>
 </Schema>

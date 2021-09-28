@@ -1,5 +1,5 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="incarcerated_population">
+    <Cube name="Incarcerated Population">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Incarcerated population by county</Annotation>
         <Annotation name="dataset_name">Incarcerated Population</Annotation>

@@ -1,5 +1,5 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="hiv_diagnoses">
+    <Cube name="HIV Diagnoses">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">HIV diagnoses by county</Annotation>
         <Annotation name="dataset_name">HIV Diagnoses</Annotation>

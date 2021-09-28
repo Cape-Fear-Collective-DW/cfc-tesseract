@@ -1,8 +1,8 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="poverty_population">
+    <Cube name="Poverty Population">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Population living in poverty by tract</Annotation>
-        <Annotation name="dataset_name">Population living in poverty</Annotation>
+        <Annotation name="dataset_name">Population Living in poverty</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="poverty_population" primary_key="tract_id" />

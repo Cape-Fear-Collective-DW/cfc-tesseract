@@ -1,5 +1,5 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="overdose_deaths">
+    <Cube name="Overdose Deaths">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Overdose deaths by county</Annotation>
         <Annotation name="dataset_name">Overdose Deaths</Annotation>

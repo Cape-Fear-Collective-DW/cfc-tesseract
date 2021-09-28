@@ -1,5 +1,5 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="teen_births">
+    <Cube name="Teen Births">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Teen births by county</Annotation>
         <Annotation name="dataset_name">Teen Births</Annotation>

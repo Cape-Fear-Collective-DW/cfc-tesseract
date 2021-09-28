@@ -2,7 +2,7 @@
     <Cube name="Life expectancy">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Life expectancy by tract</Annotation>
-        <Annotation name="dataset_name">Life expectancy</Annotation>
+        <Annotation name="dataset_name">Life Expectancy</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="life_expectancy" primary_key="tract_id" />

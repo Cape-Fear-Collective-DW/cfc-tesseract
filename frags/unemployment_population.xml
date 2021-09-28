@@ -1,5 +1,5 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="unemployment_population">
+    <Cube name="Unemployment Population">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Unemployment population by tract</Annotation>
         <Annotation name="dataset_name">Unemployment Population</Annotation>

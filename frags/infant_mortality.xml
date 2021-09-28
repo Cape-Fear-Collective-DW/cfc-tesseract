@@ -1,5 +1,5 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="infant_mortality">
+    <Cube name="Infant Mortality">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Infant mortality by county</Annotation>
         <Annotation name="dataset_name">Infant Mortality</Annotation>

@@ -1,5 +1,5 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="unemployment_projections">
+    <Cube name="Unemployment Projections">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Unemployment population projections by county</Annotation>
         <Annotation name="dataset_name">Unemployment Population</Annotation>

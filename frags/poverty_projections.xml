@@ -1,8 +1,8 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="poverty_projections">
+    <Cube name="Poverty Projections">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Population living in poverty projections by county</Annotation>
-        <Annotation name="dataset_name">Population living in poverty</Annotation>
+        <Annotation name="dataset_name">Population Living in Poverty</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="poverty_projections" primary_key="county_id" />
