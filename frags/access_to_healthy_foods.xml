@@ -33,12 +33,11 @@
             </Hierarchy>
         </Dimension>
 
-        <Measure name="Indicator Value" column="indicator_value" aggregator="sum" />
-        <Measure name="Indicator Value First Quartile" column="indicator_value_1st_quartile" aggregator="sum" />
+        <Measure name="Indicator Value" column="indicator_value" aggregator="avg" />
+        <Measure name="Indicator Value First Quartile" column="indicator_value_1st_quartile" aggregator="avg" />
         <Measure name="Indicator Value Third Quartile" column="indicator_value_3rd_quartile" aggregator="avg" />
         <Measure name="Indicator Value Median" column="indicator_value_median" aggregator="avg" />
         <Measure name="Indicator Value Apc" column="indicator_value_apc" aggregator="avg" />
-        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
 
     </Cube>
 </Schema>
