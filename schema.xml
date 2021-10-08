@@ -1,6 +1,8 @@
 <Schema name="cfc-database" default_locale="en">
 
     <SharedDimension name="County Level" type="geo">
+        <Annotation name="dim_type">Geography</Annotation>
+
         <Hierarchy name="County Level">
             <Table name="dim_shared_county" />
 
@@ -11,6 +13,8 @@
     </SharedDimension>
 
     <SharedDimension name="Tract Level" type="geo">
+        <Annotation name="dim_type">Geography</Annotation>
+        
         <Hierarchy name="Tract Level">
             <Table name="dim_shared_tract" />
 
@@ -22,6 +26,8 @@
     </SharedDimension>
 
     <SharedDimension name="Date Day" type="time">
+        <Annotation name="dim_type">Geography</Annotation>
+        
         <Hierarchy name="Date" primary_key="date_id">
             <Table name="dim_shared_date_month_day" />
             <Level name="Year" key_column="year" />
