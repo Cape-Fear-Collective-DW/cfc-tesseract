@@ -7,7 +7,7 @@
 
         <Table name="poverty_projections" primary_key="county_id" />
 
-        <DimensionUsage foreign_key="county_id" source="County Level" name="County Level" />
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
         <DimensionUsage foreign_key="date_id" source="Date Day" name="Date Day" />
 
         <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">

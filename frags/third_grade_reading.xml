@@ -7,7 +7,7 @@
 
         <Table name="third_grade_reading" primary_key="county_id" />
 
-        <DimensionUsage foreign_key="county_id" source="County Level" name="County Level" />
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
 
         <Dimension name="Year" foreign_key="year">
             <Hierarchy name="Year">

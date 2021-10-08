@@ -7,7 +7,7 @@
 
         <Table name="uninsured_population" primary_key="tract_id" />
 
-        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Tract Level" />
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
 
         <Dimension name="Year" foreign_key="year">
             <Hierarchy name="Year">
