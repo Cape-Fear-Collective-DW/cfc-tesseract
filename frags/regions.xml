@@ -1,0 +1,15 @@
+<Schema name="cfc" default_locale="en">
+    <Cube name="Regions">
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_description">Regions</Annotation>
+        <Annotation name="dataset_name">Regions</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
+
+        <Table name="region_table" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="Region Level" name="Geography" />
+
+        <Measure name="Counties" column= "count" aggregator= "sum" />
+
+    </Cube>
+</Schema>

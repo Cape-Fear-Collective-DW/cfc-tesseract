@@ -23,6 +23,15 @@
         </Hierarchy>
     </SharedDimension>
 
+    <SharedDimension name="Region Level" type="geo">
+        <Hierarchy name="Region Level">
+            <Table name="dim_shared_region" />
+
+            <Level name="Region" key_column="region_id" name_column="region" key_type="text" />
+            <Level name="County" key_column="county_id" name_column="county" key_type="text" />
+        </Hierarchy>
+    </SharedDimension>
+
     <SharedDimension name="Date Day" type="time">
         
         <Hierarchy name="Date" primary_key="date_id">
@@ -40,6 +49,20 @@
             </Level>
         </Hierarchy>
     </SharedDimension>
+
+    <Cube name="Regions">
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_description">Regions</Annotation>
+        <Annotation name="dataset_name">Regions</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
+
+        <Table name="region_table" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="Region Level" name="Geography" />
+
+        <Measure name="Counties" column= "count" aggregator= "sum" />
+
+    </Cube>
 
     <Cube name="Uninsured Population">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
