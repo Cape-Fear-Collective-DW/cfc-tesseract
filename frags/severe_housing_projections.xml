@@ -1,11 +1,11 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="Severe Housing Problems">
+    <Cube name="Severe Housing Problems Projections">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
-        <Annotation name="source_description">Severe Housing Problems by tract</Annotation>
+        <Annotation name="source_description">Severe Housing Problems Projections by county</Annotation>
         <Annotation name="dataset_name">Severe housing problems</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
-        <Table name="severe_housing_population" primary_key="tract_id" />
+        <Table name="severe_housing_projection" primary_key="tract_id" />
 
         <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
         <DimensionUsage foreign_key="date_id" source="Date Day" name="Date Day" />
