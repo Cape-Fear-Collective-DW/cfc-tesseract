@@ -2441,4 +2441,46 @@
 
     </Cube>
 
+    <Cube name="Primary Care Workforce">
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_description">Primary care workforce (primary_care_workforce_per_1500) by county</Annotation>
+        <Annotation name="dataset_name">Primary Care Workforce</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
+
+        <Table name="primary_care_workforce" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
 </Schema>
