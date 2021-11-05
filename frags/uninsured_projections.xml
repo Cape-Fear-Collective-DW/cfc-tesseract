@@ -59,7 +59,7 @@
                     </Row>
                     <Row>
                         <Value column="id">11</Value>
-                        <Value column="name">White non Hispanic</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
                     </Row>
                     <Row>
                         <Value column="id">12</Value>
@@ -67,7 +67,7 @@
                     </Row>
                     <Row>
                         <Value column="id">14</Value>
-                        <Value column="name">2 or more races</Value>
+                        <Value column="name">2+ races</Value>
                     </Row>
                     <Row>
                         <Value column="id">98</Value>

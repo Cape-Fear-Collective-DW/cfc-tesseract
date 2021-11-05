@@ -40,7 +40,7 @@
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">6</Value>
-                        <Value column="name">Africanamerican non Hispanic</Value>
+                        <Value column="name">African American (non-Hispanic)</Value>
                     </Row>
                     <Row>
                         <Value column="id">9</Value>
@@ -48,11 +48,11 @@
                     </Row>
                     <Row>
                         <Value column="id">11</Value>
-                        <Value column="name">White non Hispanic</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
                     </Row>
                     <Row>
                         <Value column="id">13</Value>
-                        <Value column="name">Other non Hispanic</Value>
+                        <Value column="name">Other (non-Hispanic)</Value>
                     </Row>
                     <Row>
                         <Value column="id">98</Value>

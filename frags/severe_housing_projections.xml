@@ -35,19 +35,19 @@
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">2</Value>
-                        <Value column="name">Native American or Alaskan Native, no Hispanic</Value>
+                        <Value column="name">Native American or Alaskan Native (non-Hispanic)</Value>
                     </Row>
                     <Row>
                         <Value column="id">4</Value>
-                        <Value column="name">Asian, no Hispanic</Value>
+                        <Value column="name">Asian (non-Hispanic)</Value>
                     </Row>
                     <Row>
                         <Value column="id">6</Value>
-                        <Value column="name">Black, no Hispanic</Value>
+                        <Value column="name">Black (non-Hispanic)</Value>
                     </Row>
                     <Row>
                         <Value column="id">8</Value>
-                        <Value column="name">Hawaiian Native or Pacific Islander, no Hispanic</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander (non-Hispanic)</Value>
                     </Row>
                     <Row>
                         <Value column="id">9</Value>
@@ -55,11 +55,11 @@
                     </Row>
                     <Row>
                         <Value column="id">11</Value>
-                        <Value column="name">White non Hispanic</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
                     </Row>
                     <Row>
                         <Value column="id">13</Value>
-                        <Value column="name">Other, no Hispanic</Value>
+                        <Value column="name">Other (non-Hispanic)</Value>
                     </Row>
                     <Row>
                         <Value column="id">98</Value>

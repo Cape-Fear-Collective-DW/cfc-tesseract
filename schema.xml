@@ -98,6 +98,24 @@
             </Hierarchy>
         </Dimension>
 
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
         <Dimension name="Race" foreign_key="race_id">
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
@@ -281,6 +299,24 @@
                     </Row>
                 </InlineTable>
                 <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -603,6 +639,24 @@
                     </Row>
                 </InlineTable>
                 <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -1968,6 +2022,7 @@
         <Table name="third_grade_reading" primary_key="county_id" />
 
         <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+        <DimensionUsage foreign_key="lea_code" source="LEA" name="LEA Schools" />
 
         <Dimension name="Year" foreign_key="year">
             <Hierarchy name="Year">
@@ -2015,44 +2070,6 @@
             </Hierarchy>
         </Dimension>
 
-        <Dimension name="Achievement Level" foreign_key="achievement_level_id">
-            <Hierarchy name="Achievement Level" primary_key="id">
-                <InlineTable alias="dim_achievement_level">
-                    <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Level 1</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">2</Value>
-                        <Value column="name">Level 2</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">3</Value>
-                        <Value column="name">Level 3</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">4</Value>
-                        <Value column="name">Level 4</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">5</Value>
-                        <Value column="name">Level 5</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">6</Value>
-                        <Value column="name">College and Career Ready</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">7</Value>
-                        <Value column="name">Grade Level Proficient</Value>
-                    </Row>
-                </InlineTable>
-                <Level name="Achievement Level" key_column="id" name_column="name" />
-            </Hierarchy>
-        </Dimension>
-
         <Dimension name="Race" foreign_key="race_id">
             <Hierarchy name="Race" primary_key="id">
                 <InlineTable alias="dim_race">
@@ -2088,6 +2105,44 @@
                     </Row>
                 </InlineTable>
                 <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Achievement Level" foreign_key="achievement_level_id">
+            <Hierarchy name="Achievement Level" primary_key="id">
+                <InlineTable alias="dim_achievement_level">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Level 1</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Level 2</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Level 3</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">Level 4</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Level 5</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">College and career ready</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Grade level proficient</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Achievement Level" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -2163,6 +2218,56 @@
                     </Row>
                 </InlineTable>
                 <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Age" foreign_key="age_id">
+            <Hierarchy name="Age" primary_key="id">
+                <InlineTable alias="dim_age">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">0 - 9</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">10 - 19</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">20 - 29</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">30 - 44</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">45 - 54</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">55 - 64</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">65 - 74</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">8</Value>
+                        <Value column="name">75 - 84</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">85+</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Age" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -2368,6 +2473,24 @@
                     </Row>
                 </InlineTable>
                 <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
