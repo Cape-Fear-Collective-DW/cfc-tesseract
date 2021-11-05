@@ -50,11 +50,11 @@
         </Hierarchy>
     </SharedDimension>
 
-    <SharedDimension name="LEA" type="geo">
+    <SharedDimension name="LEA">
         <Hierarchy name="LEA">
             <Table name="dim_shared_lea_codes" />
 
-            <Level name="LEA" key_column="lea_code" name_column="lea" key_type="text" />
+            <Level name="LEA" key_column="lea_code" name_column="district_name" key_type="text" />
         </Hierarchy>
     </SharedDimension>
 
@@ -2030,7 +2030,7 @@
         <Table name="third_grade_reading" primary_key="county_id" />
 
         <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
-        <DimensionUsage foreign_key="lea_code" source="LEA" name="LEA Schools" />
+        <DimensionUsage foreign_key="lea_code" source="LEA" name="LEA" />
 
         <Dimension name="Year" foreign_key="year">
             <Hierarchy name="Year">

@@ -46,11 +46,11 @@
         </Hierarchy>
     </SharedDimension>
 
-    <SharedDimension name="LEA" type="geo">
+    <SharedDimension name="LEA">
         <Hierarchy name="LEA">
             <Table name="dim_shared_lea_codes" />
 
-            <Level name="LEA" key_column="lea_code" name_column="lea" key_type="text" />
+            <Level name="LEA" key_column="lea_code" name_column="district_name" key_type="text" />
         </Hierarchy>
     </SharedDimension>
 
