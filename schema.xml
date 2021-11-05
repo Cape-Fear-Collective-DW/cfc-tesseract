@@ -50,6 +50,14 @@
         </Hierarchy>
     </SharedDimension>
 
+    <SharedDimension name="LEA" type="geo">
+        <Hierarchy name="LEA">
+            <Table name="dim_shared_lea_codes" />
+
+            <Level name="LEA" key_column="lea_code" name_column="lea" key_type="text" />
+        </Hierarchy>
+    </SharedDimension>
+
     <Cube name="Regions">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Regions</Annotation>
