@@ -62,6 +62,10 @@
                         <Value column="id">15</Value>
                         <Value column="name">American Indian</Value>
                     </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
                 </InlineTable>
                 <Level name="Race" key_column="id" name_column="name" />
             </Hierarchy>
