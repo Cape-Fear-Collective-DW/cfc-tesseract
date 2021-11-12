@@ -12,6 +12,7 @@ on:
       - 'Dockerfile'
     branches:
       - develop 
+  workflow_dispatch:
 
 # environment variables used on the respective workflow
 env:
