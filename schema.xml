@@ -73,12 +73,10 @@
     </Cube>
 
     <Cube name="Uninsured Population">
-        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Uninsured population by tract</Annotation>
-        <Annotation name="source_link">https://www.census.gov/</Annotation>        
-        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Detailed Tables (C27001A-I)</Annotation>
-        <Annotation name="dataset_description">Population under age 65 without health insurance</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?t=Health%20Insurance&tid=ACSDT5Y2019.C27001A</Annotation>
+        <Annotation name="dataset_name">Uninsured Population</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="uninsured_population" primary_key="tract_id" />
 
@@ -186,13 +184,10 @@
     </Cube>
 
     <Cube name="Uninsured Projections">
-        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Uninsured population projections by county</Annotation>
-        <Annotation name="source_link">https://www.census.gov/</Annotation>        
-        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Detailed Tables (C27001A-I)</Annotation>
-        <Annotation name="dataset_description">Population under age 65 without health insurance</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?t=Health%20Insurance&tid=ACSDT5Y2019.C27001A</Annotation>
-
+        <Annotation name="dataset_name">Uninsured Population</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="uninsured_projections" primary_key="county_id" />
 
@@ -280,14 +275,12 @@
         <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
 
     </Cube>
- 
+
     <Cube name="Unemployment Population">
-        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Unemployment population by tract</Annotation>
-        <Annotation name="source_link">https://www.census.gov/</Annotation>        
-        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S2301)</Annotation>
-        <Annotation name="dataset_description">Percentage of individuals aged 16 and older who are in the labor force, but unemployed</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S2301&tid=ACSST5Y2019.S2301</Annotation>
+        <Annotation name="dataset_name">Unemployment Population</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="unemployment_population" primary_key="tract_id" />
 
@@ -463,12 +456,10 @@
     </Cube>
 
     <Cube name="Unemployment Projections">
-        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Unemployment population projections by county</Annotation>
-        <Annotation name="source_link">https://www.census.gov/</Annotation>        
-        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S2301)</Annotation>
-        <Annotation name="dataset_description">Percentage of individuals aged 16 and older who are in the labor force, but unemployed</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S2301&tid=ACSST5Y2019.S2301</Annotation>
+        <Annotation name="dataset_name">Unemployment Population</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="unemployment_projections" primary_key="county_id" />
 
@@ -626,12 +617,10 @@
     </Cube>
 
     <Cube name="Poverty Population">
-        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Population living in poverty by tract</Annotation>
-        <Annotation name="source_link">https://www.census.gov/</Annotation>        
-        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S1701)</Annotation>
-        <Annotation name="dataset_description">Percentage of individuals with household incomes at or below 200% of the FPL</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S1701&tid=ACSST5Y2019.S1701</Annotation>
+        <Annotation name="dataset_name">Population Living in Poverty</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="poverty_population" primary_key="tract_id" />
 
@@ -873,12 +862,10 @@
     </Cube>
 
     <Cube name="Poverty Projections">
-        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Population living in poverty projections by county</Annotation>
-        <Annotation name="source_link">https://www.census.gov/</Annotation>        
-        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S1701)</Annotation>
-        <Annotation name="dataset_description">Percentage of individuals with household incomes at or below 200% of the FPL</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S1701&tid=ACSST5Y2019.S1701</Annotation>
+        <Annotation name="dataset_name">Population Living in Poverty</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="poverty_projections" primary_key="county_id" />
 
@@ -1104,10 +1091,8 @@
     <Cube name="Severe Housing Population">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Severe Housing Problems Population by tract</Annotation>
-        <Annotation name="source_link">https://capefearcollective.org/</Annotation>        
-        <Annotation name="dataset_name">North Carolina Severe Housing Problems Model Data</Annotation>
-        <Annotation name="dataset_description">Percentage of households with at least 1 of four HUD-designated housing problems</Annotation>
-        <Annotation name="dataset_link">https://capefearcollective.org/insights/data-library/</Annotation>
+        <Annotation name="dataset_name">Severe housing problems</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="severe_housing_population" primary_key="tract_id" />
 
@@ -1209,10 +1194,8 @@
     <Cube name="Severe Housing Projections">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Severe Housing Problems Projections by county</Annotation>
-        <Annotation name="source_link">https://capefearcollective.org/</Annotation>        
-        <Annotation name="dataset_name">North Carolina Severe Housing Problems Model Data</Annotation>
-        <Annotation name="dataset_description">Percentage of households with at least 1 of four HUD-designated housing problems</Annotation>
-        <Annotation name="dataset_link">https://capefearcollective.org/insights/data-library/</Annotation>
+        <Annotation name="dataset_name">Severe housing problems</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="severe_housing_projection" primary_key="tract_id" />
 
@@ -1294,12 +1277,10 @@
     </Cube>
 
     <Cube name="ACES Population">
-        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Adverse Childhood Experiences by tract</Annotation>
-        <Annotation name="source_link">https://www.census.gov/</Annotation>        
-        <Annotation name="dataset_name">North Carolina Severe Housing Problems Model Data</Annotation>
-        <Annotation name="dataset_description">Percentage of children who have experienced two or more of the following: hard to get by on money, parent/guardian divorced or separated, parent/guardian died, parent/guardian served time in jail, saw or heard violence in the home, victim/witness of neighborhood violence, lived with anyone mentally ill, suicidal or depressed, live with anyone with alcohol or drug problem, often treated or judged unfairly due to race/ethnicity</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=16%20to%2019&tid=ACSDT5Y2019.B14005</Annotation>
+        <Annotation name="dataset_name">Disconnected youth pct (16to19yos)</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="adverse_childhood_experiences_population" primary_key="tract_id" />
 
@@ -1380,12 +1361,10 @@
     </Cube>
 
     <Cube name="ACES Projections">
-        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Adverse Childhood Experiences Projections by county</Annotation>
-        <Annotation name="source_link">https://www.census.gov/</Annotation>        
-        <Annotation name="dataset_name">North Carolina Severe Housing Problems Model Data</Annotation>
-        <Annotation name="dataset_description">Percentage of children who have experienced two or more of the following: hard to get by on money, parent/guardian divorced or separated, parent/guardian died, parent/guardian served time in jail, saw or heard violence in the home, victim/witness of neighborhood violence, lived with anyone mentally ill, suicidal or depressed, live with anyone with alcohol or drug problem, often treated or judged unfairly due to race/ethnicity</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=16%20to%2019&tid=ACSDT5Y2019.B14005</Annotation>
+        <Annotation name="dataset_name">Disconnected youth pct (16to19yos)</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="adverse_childhood_experiences_projection" primary_key="tract_id" />
 
@@ -1446,12 +1425,10 @@
     </Cube>
 
     <Cube name="Incarcerated Population">
-        <Annotation name="source_name">N.C. Department of Public Safety</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Incarcerated population by county</Annotation>
-        <Annotation name="source_link">https://www.ncdps.gov/</Annotation>        
-        <Annotation name="dataset_name">Office of Research and Planning (Automated System Query Custom Offender Reports)</Annotation>
-        <Annotation name="dataset_description">Incarceration in prisons per 100,000 population</Annotation>
-        <Annotation name="dataset_link">https://webapps.doc.state.nc.us/apps/asqExt/ASQ</Annotation>
+        <Annotation name="dataset_name">Incarcerated Population</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="incarcerated_population" primary_key="county_id" />
 
@@ -1551,12 +1528,10 @@
     </Cube>
 
     <Cube name="Overdose Deaths">
-        <Annotation name="source_name">N.C. Department of Health & Human Services</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Overdose deaths by county</Annotation>
-        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
-        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Detailed Mortality Statistics)</Annotation>
-        <Annotation name="dataset_description">Number of persons who die as a result of drug poisoning per 100,000 population</Annotation>
-        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/dms/dms.cfm</Annotation>
+        <Annotation name="dataset_name">Overdose Deaths</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="overdose_deaths" primary_key="county_id" />
 
@@ -1690,12 +1665,10 @@
     </Cube>
 
     <Cube name="Prenatal Care">
-        <Annotation name="source_name">N.C. Department of Health & Human Services</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Prenatal care by county</Annotation>
-        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
-        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Live Birth Data)</Annotation>
-        <Annotation name="dataset_description">Percent of women who receive pregnancy- related health care services during the first trimester of a pregnancy</Annotation>
-        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/births/bd_2016andlater.cfm</Annotation>
+        <Annotation name="dataset_name">Prenatal Care</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="prenatal_care" primary_key="county_id" />
 
@@ -1765,12 +1738,10 @@
     </Cube>
 
     <Cube name="Teen Births">
-        <Annotation name="source_name">N.C. Department of Health & Human Services</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Teen births by county</Annotation>
-        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
-        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Live Birth Data)</Annotation>
-        <Annotation name="dataset_description">Number of births to girls aged 15-19 per 1,000 population</Annotation>
-        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/births/bd_2016andlater.cfm</Annotation>
+        <Annotation name="dataset_name">Teen Births</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="teen_births" primary_key="county_id" />
 
@@ -1840,12 +1811,10 @@
     </Cube>
 
     <Cube name="Infant Mortality">
-        <Annotation name="source_name">N.C. Department of Health & Human Services</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Infant mortality by county</Annotation>
-        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
-        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Detailed Mortality Statistics)</Annotation>
-        <Annotation name="dataset_description">Rate of infant deaths per 1,000 live births</Annotation>
-        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/dms/dms.cfm</Annotation>
+        <Annotation name="dataset_name">Infant Mortality</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="infant_mortality" primary_key="county_id" />
 
@@ -2010,12 +1979,10 @@
     </Cube>
 
     <Cube name="Access to Exercise">
-        <Annotation name="source_name">County Health Rankings & Roadmaps</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Access to exercise opportunities by county</Annotation>
-        <Annotation name="source_link">https://www.countyhealthrankings.org/</Annotation>        
-        <Annotation name="dataset_name">North Carolina Rankings Data (Ranked Measure Data)</Annotation>
-        <Annotation name="dataset_description">Percentage of the population living half a mile from a park in any area, one mile from a recreational center in a metropolitan area, or three miles from a recreational center in a rural area</Annotation>
-        <Annotation name="dataset_link">https://www.countyhealthrankings.org/app/north-carolina/2021/downloads</Annotation>
+        <Annotation name="dataset_name">Access to Exercise Opportunities </Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="access_exercise" primary_key="county_id" />
 
@@ -2055,12 +2022,10 @@
     </Cube>
 
     <Cube name="Third Grade Reading">
-        <Annotation name="source_name">N.C. Department of Public Instruction</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Third grade reading population by county</Annotation>
-        <Annotation name="source_link">https://www.dpi.nc.gov/</Annotation>        
-        <Annotation name="dataset_name">Accountability Datasets & Reports (School Assessment & Other Indicator Data)</Annotation>
-        <Annotation name="dataset_description">Percentage of children reading at a proficient level or above based on third grade End of Grade exams</Annotation>
-        <Annotation name="dataset_link">https://www.dpi.nc.gov/districts-schools/testing-and-school-accountability/school-accountability-and-reporting/accountability-data-sets-and-reports</Annotation>
+        <Annotation name="dataset_name">Third Grade Reading</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="third_grade_reading" primary_key="county_id" />
 
@@ -2197,12 +2162,10 @@
     </Cube>
 
     <Cube name="Suicides">
-        <Annotation name="source_name">N.C. Department of Health & Human Services</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Suicides by county</Annotation>
-        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
-        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Detailed Mortality Statistics)</Annotation>
-        <Annotation name="dataset_description">Age-adjusted number of deaths attributable to self-harm per 100,000 population</Annotation>
-        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/dms/dms.cfm</Annotation>
+        <Annotation name="dataset_name">Suicides</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="suicides" primary_key="county_id" />
 
@@ -2330,12 +2293,10 @@
     </Cube>
 
     <Cube name="HIV Diagnoses">
-        <Annotation name="source_name">Centers for Disease Control & Prevention</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">HIV diagnoses by county</Annotation>
-        <Annotation name="source_link">https://www.cdc.gov</Annotation>        
-        <Annotation name="dataset_name">National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention (AtlasPlus Data)</Annotation>
-        <Annotation name="dataset_description">Number of new HIV diagnoses per 100,000 population</Annotation>
-        <Annotation name="dataset_link">https://www.cdc.gov/nchhstp/atlas/index.htm</Annotation>
+        <Annotation name="dataset_name">HIV Diagnoses</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="hiv_diagnoses" primary_key="county_id" />
 
@@ -2417,12 +2378,10 @@
     </Cube>
 
     <Cube name="Life expectancy">
-        <Annotation name="source_name">Centers for Disease Control & Prevention</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Life expectancy by tract</Annotation>
-        <Annotation name="source_link">https://www.cdc.gov</Annotation>        
-        <Annotation name="dataset_name">National Center for Health Statistics (U.S. Small-Area Life Expectancy Estimates Project Files)</Annotation>
-        <Annotation name="dataset_description">Average number of years of life remaining</Annotation>
-        <Annotation name="dataset_link">https://www.cdc.gov/nchs/nvss/usaleep/usaleep.html#life-expectancy</Annotation>
+        <Annotation name="dataset_name">Life Expectancy</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="life_expectancy" primary_key="tract_id" />
 
@@ -2498,10 +2457,8 @@
     <Cube name="Access Healthy Food">
         <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Access to healthy food by tract</Annotation>
-        <Annotation name="source_link">https://capefearcollective.org/</Annotation>        
-        <Annotation name="dataset_name">North Carolina Food Hardship Index</Annotation>
-        <Annotation name="dataset_description">Percentage of people who are low-income that are not in close proximity to a grocery store</Annotation>
-        <Annotation name="dataset_link">https://capefearcollective.org/insights/data-library/</Annotation>
+        <Annotation name="dataset_name">Access to Healthy Food</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="access_to_healthy_foods" primary_key="tract_id" />
 
@@ -2558,12 +2515,10 @@
     </Cube>
 
     <Cube name="Binge Drinking">
-        <Annotation name="source_name">Centers for Disease Control & Prevention</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Binge Drinking by county</Annotation>
-        <Annotation name="source_link">https://www.cdc.gov</Annotation>        
-        <Annotation name="dataset_name">PLACES: Local Data for Better Health (Census Tract Data)</Annotation>
-        <Annotation name="dataset_description">Percent of adults reporting binge or heavy drinking</Annotation>
-        <Annotation name="dataset_link">https://www.cdc.gov/places/index.html</Annotation>
+        <Annotation name="dataset_name">Binge drinking</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="binge_drinking" primary_key="county_id" />
 
@@ -2622,12 +2577,10 @@
     </Cube>
 
     <Cube name="Primary Care Workforce">
-        <Annotation name="source_name">U.N.C. Cecil G. Sheps Center for Health Services Research</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Primary care workforce (primary_care_workforce_per_1500) by county</Annotation>
-        <Annotation name="source_link">https://www.shepscenter.unc.edu/</Annotation>        
-        <Annotation name="dataset_name">N.C. Health Profession Data System (Sheps Health Workforce NC Data)</Annotation>
-        <Annotation name="dataset_description">Primary care workforce as a ratio of the number of full-time equivalent primary care clinicians to county population</Annotation>
-        <Annotation name="dataset_link">https://nchealthworkforce.unc.edu/downloaddata/</Annotation>
+        <Annotation name="dataset_name">Primary Care Workforce</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="primary_care_workforce" primary_key="county_id" />
 
@@ -2666,12 +2619,10 @@
     </Cube>
 
     <Cube name="Short Term Suspensions">
-        <Annotation name="source_name">N.C. Department of Public Instruction</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Short term suspensions by county</Annotation>
-        <Annotation name="source_link">https://www.dpi.nc.gov/</Annotation>        
-        <Annotation name="dataset_name">Discipline, ALP and Dropout Annual Reports (Suspension Tables)</Annotation>
-        <Annotation name="dataset_description">Number of out-of-school short-term suspensions in educational facilities for all grades per 10 students</Annotation>
-        <Annotation name="dataset_link">https://www.dpi.nc.gov/data-reports/dropout-and-discipline-data/discipline-alp-and-dropout-annual-reports</Annotation>
+        <Annotation name="dataset_name">Short Term Suspensions</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="short_term_suspensions" primary_key="county_id" />
 
@@ -2752,12 +2703,10 @@
     </Cube>
 
     <Cube name="Tobacco Use">
-        <Annotation name="source_name">Centers for Disease Control & Prevention</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Tobacco Use by tract</Annotation>
-        <Annotation name="source_link">https://www.cdc.gov</Annotation>        
-        <Annotation name="dataset_name">PLACES: Local Data for Better Health (Census Tract Data)</Annotation>
-        <Annotation name="dataset_description">Percent of youth and adults reporting current use of e-cigarettes, cigarettes, cigars, smokeless tobacco, pipes, and/or hookah</Annotation>
-        <Annotation name="dataset_link">https://www.cdc.gov/places/index.html</Annotation>
+        <Annotation name="dataset_name">Tobacco use</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="tobacco_use" primary_key="tract_id" />
 
@@ -2816,11 +2765,10 @@
     </Cube>
 
     <Cube name="Sugar Sweetened Beverages">
-        <Annotation name="source_name">Novant Health New Hanover Regional Medical Center</Annotation>
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
         <Annotation name="source_description">Sugar Sweetened Beverages by County</Annotation>
-        <Annotation name="source_link">https://www.nhrmc.org/</Annotation>        
-        <Annotation name="dataset_name">Diabetes Patient Registry (Aggregate Census Tract Data)</Annotation>
-        <Annotation name="dataset_description">Percent of youth and adults reporting consumption of one or more sugar- sweetened beverages (SSBs) per day</Annotation>
+        <Annotation name="dataset_name">Sugar sweetened beverages</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
         <Table name="sugar_sweetened_beverages" primary_key="tract_id" />
 
