@@ -78,7 +78,7 @@
         <Annotation name="source_link">https://www.census.gov/</Annotation>        
         <Annotation name="dataset_name">American Community Survey 5-Year Estimates Detailed Tables (C27001A-I)</Annotation>
         <Annotation name="dataset_description">Population under age 65 without health insurance</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?t=Health%20Insurance&tid=ACSDT5Y2019.C27001A</Annotation>
+        <Annotation name="dataset_link">"https://data.census.gov/cedsci/table?t=Health%20Insurance&amp;tid=ACSDT5Y2019.C27001A"</Annotation>
 
         <Table name="uninsured_population" primary_key="tract_id" />
 
@@ -191,7 +191,7 @@
         <Annotation name="source_link">https://www.census.gov/</Annotation>        
         <Annotation name="dataset_name">American Community Survey 5-Year Estimates Detailed Tables (C27001A-I)</Annotation>
         <Annotation name="dataset_description">Population under age 65 without health insurance</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?t=Health%20Insurance&tid=ACSDT5Y2019.C27001A</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?t=Health%20Insurance&amp;tid=ACSDT5Y2019.C27001A</Annotation>
 
 
         <Table name="uninsured_projections" primary_key="county_id" />
@@ -287,7 +287,7 @@
         <Annotation name="source_link">https://www.census.gov/</Annotation>        
         <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S2301)</Annotation>
         <Annotation name="dataset_description">Percentage of individuals aged 16 and older who are in the labor force, but unemployed</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S2301&tid=ACSST5Y2019.S2301</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S2301&amp;tid=ACSST5Y2019.S2301</Annotation>
 
         <Table name="unemployment_population" primary_key="tract_id" />
 
@@ -468,7 +468,7 @@
         <Annotation name="source_link">https://www.census.gov/</Annotation>        
         <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S2301)</Annotation>
         <Annotation name="dataset_description">Percentage of individuals aged 16 and older who are in the labor force, but unemployed</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S2301&tid=ACSST5Y2019.S2301</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S2301&amp;tid=ACSST5Y2019.S2301</Annotation>
 
         <Table name="unemployment_projections" primary_key="county_id" />
 
@@ -631,7 +631,7 @@
         <Annotation name="source_link">https://www.census.gov/</Annotation>        
         <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S1701)</Annotation>
         <Annotation name="dataset_description">Percentage of individuals with household incomes at or below 200% of the FPL</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S1701&tid=ACSST5Y2019.S1701</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S1701&amp;tid=ACSST5Y2019.S1701</Annotation>
 
         <Table name="poverty_population" primary_key="tract_id" />
 
@@ -878,7 +878,7 @@
         <Annotation name="source_link">https://www.census.gov/</Annotation>        
         <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S1701)</Annotation>
         <Annotation name="dataset_description">Percentage of individuals with household incomes at or below 200% of the FPL</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S1701&tid=ACSST5Y2019.S1701</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S1701&amp;tid=ACSST5Y2019.S1701</Annotation>
 
         <Table name="poverty_projections" primary_key="county_id" />
 
@@ -1299,7 +1299,7 @@
         <Annotation name="source_link">https://www.census.gov/</Annotation>        
         <Annotation name="dataset_name">North Carolina Severe Housing Problems Model Data</Annotation>
         <Annotation name="dataset_description">Percentage of children who have experienced two or more of the following: hard to get by on money, parent/guardian divorced or separated, parent/guardian died, parent/guardian served time in jail, saw or heard violence in the home, victim/witness of neighborhood violence, lived with anyone mentally ill, suicidal or depressed, live with anyone with alcohol or drug problem, often treated or judged unfairly due to race/ethnicity</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=16%20to%2019&tid=ACSDT5Y2019.B14005</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=16%20to%2019&amp;tid=ACSDT5Y2019.B14005</Annotation>
 
         <Table name="adverse_childhood_experiences_population" primary_key="tract_id" />
 
@@ -1385,7 +1385,7 @@
         <Annotation name="source_link">https://www.census.gov/</Annotation>        
         <Annotation name="dataset_name">North Carolina Severe Housing Problems Model Data</Annotation>
         <Annotation name="dataset_description">Percentage of children who have experienced two or more of the following: hard to get by on money, parent/guardian divorced or separated, parent/guardian died, parent/guardian served time in jail, saw or heard violence in the home, victim/witness of neighborhood violence, lived with anyone mentally ill, suicidal or depressed, live with anyone with alcohol or drug problem, often treated or judged unfairly due to race/ethnicity</Annotation>
-        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=16%20to%2019&tid=ACSDT5Y2019.B14005</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=16%20to%2019&amp;tid=ACSDT5Y2019.B14005</Annotation>
 
         <Table name="adverse_childhood_experiences_projection" primary_key="tract_id" />
 
@@ -1551,7 +1551,7 @@
     </Cube>
 
     <Cube name="Overdose Deaths">
-        <Annotation name="source_name">N.C. Department of Health & Human Services</Annotation>
+        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
         <Annotation name="source_description">Overdose deaths by county</Annotation>
         <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
         <Annotation name="dataset_name">N.C. State Center for Health Statistics (Detailed Mortality Statistics)</Annotation>
@@ -1690,7 +1690,7 @@
     </Cube>
 
     <Cube name="Prenatal Care">
-        <Annotation name="source_name">N.C. Department of Health & Human Services</Annotation>
+        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
         <Annotation name="source_description">Prenatal care by county</Annotation>
         <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
         <Annotation name="dataset_name">N.C. State Center for Health Statistics (Live Birth Data)</Annotation>
@@ -1765,7 +1765,7 @@
     </Cube>
 
     <Cube name="Teen Births">
-        <Annotation name="source_name">N.C. Department of Health & Human Services</Annotation>
+        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
         <Annotation name="source_description">Teen births by county</Annotation>
         <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
         <Annotation name="dataset_name">N.C. State Center for Health Statistics (Live Birth Data)</Annotation>
@@ -1840,7 +1840,7 @@
     </Cube>
 
     <Cube name="Infant Mortality">
-        <Annotation name="source_name">N.C. Department of Health & Human Services</Annotation>
+        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
         <Annotation name="source_description">Infant mortality by county</Annotation>
         <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
         <Annotation name="dataset_name">N.C. State Center for Health Statistics (Detailed Mortality Statistics)</Annotation>
@@ -2010,7 +2010,7 @@
     </Cube>
 
     <Cube name="Access to Exercise">
-        <Annotation name="source_name">County Health Rankings & Roadmaps</Annotation>
+        <Annotation name="source_name">County Health Rankings &amp; Roadmaps</Annotation>
         <Annotation name="source_description">Access to exercise opportunities by county</Annotation>
         <Annotation name="source_link">https://www.countyhealthrankings.org/</Annotation>        
         <Annotation name="dataset_name">North Carolina Rankings Data (Ranked Measure Data)</Annotation>
@@ -2058,7 +2058,7 @@
         <Annotation name="source_name">N.C. Department of Public Instruction</Annotation>
         <Annotation name="source_description">Third grade reading population by county</Annotation>
         <Annotation name="source_link">https://www.dpi.nc.gov/</Annotation>        
-        <Annotation name="dataset_name">Accountability Datasets & Reports (School Assessment & Other Indicator Data)</Annotation>
+        <Annotation name="dataset_name">Accountability Datasets &amp; Reports (School Assessment &amp; Other Indicator Data)</Annotation>
         <Annotation name="dataset_description">Percentage of children reading at a proficient level or above based on third grade End of Grade exams</Annotation>
         <Annotation name="dataset_link">https://www.dpi.nc.gov/districts-schools/testing-and-school-accountability/school-accountability-and-reporting/accountability-data-sets-and-reports</Annotation>
 
@@ -2197,7 +2197,7 @@
     </Cube>
 
     <Cube name="Suicides">
-        <Annotation name="source_name">N.C. Department of Health & Human Services</Annotation>
+        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
         <Annotation name="source_description">Suicides by county</Annotation>
         <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
         <Annotation name="dataset_name">N.C. State Center for Health Statistics (Detailed Mortality Statistics)</Annotation>
@@ -2330,7 +2330,7 @@
     </Cube>
 
     <Cube name="HIV Diagnoses">
-        <Annotation name="source_name">Centers for Disease Control & Prevention</Annotation>
+        <Annotation name="source_name">Centers for Disease Control &amp; Prevention</Annotation>
         <Annotation name="source_description">HIV diagnoses by county</Annotation>
         <Annotation name="source_link">https://www.cdc.gov</Annotation>        
         <Annotation name="dataset_name">National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention (AtlasPlus Data)</Annotation>
@@ -2417,7 +2417,7 @@
     </Cube>
 
     <Cube name="Life expectancy">
-        <Annotation name="source_name">Centers for Disease Control & Prevention</Annotation>
+        <Annotation name="source_name">Centers for Disease Control &amp; Prevention</Annotation>
         <Annotation name="source_description">Life expectancy by tract</Annotation>
         <Annotation name="source_link">https://www.cdc.gov</Annotation>        
         <Annotation name="dataset_name">National Center for Health Statistics (U.S. Small-Area Life Expectancy Estimates Project Files)</Annotation>
@@ -2558,7 +2558,7 @@
     </Cube>
 
     <Cube name="Binge Drinking">
-        <Annotation name="source_name">Centers for Disease Control & Prevention</Annotation>
+        <Annotation name="source_name">Centers for Disease Control &amp; Prevention</Annotation>
         <Annotation name="source_description">Binge Drinking by county</Annotation>
         <Annotation name="source_link">https://www.cdc.gov</Annotation>        
         <Annotation name="dataset_name">PLACES: Local Data for Better Health (Census Tract Data)</Annotation>
@@ -2752,7 +2752,7 @@
     </Cube>
 
     <Cube name="Tobacco Use">
-        <Annotation name="source_name">Centers for Disease Control & Prevention</Annotation>
+        <Annotation name="source_name">Centers for Disease Control &amp; Prevention</Annotation>
         <Annotation name="source_description">Tobacco Use by tract</Annotation>
         <Annotation name="source_link">https://www.cdc.gov</Annotation>        
         <Annotation name="dataset_name">PLACES: Local Data for Better Health (Census Tract Data)</Annotation>
