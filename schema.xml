@@ -584,27 +584,39 @@
                     </Row>
                     <Row>
                         <Value column="id">3</Value>
-                        <Value column="name">25 - 44</Value>
+                        <Value column="name">25 - 29</Value>
                     </Row>
                     <Row>
                         <Value column="id">4</Value>
-                        <Value column="name">45 - 54</Value>
+                        <Value column="name">30 - 34</Value>
                     </Row>
                     <Row>
                         <Value column="id">5</Value>
-                        <Value column="name">55 - 64</Value>
+                        <Value column="name">35 - 44</Value>
                     </Row>
                     <Row>
                         <Value column="id">6</Value>
-                        <Value column="name">65 - 74</Value>
+                        <Value column="name">45 - 54</Value>
                     </Row>
                     <Row>
                         <Value column="id">7</Value>
-                        <Value column="name">75+</Value>
+                        <Value column="name">55 - 64</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">8</Value>
+                        <Value column="name">65 - 74</Value>
                     </Row>
                     <Row>
                         <Value column="id">9</Value>
+                        <Value column="name">75+</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">18</Value>
                         <Value column="name">20 - 64</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">19</Value>
+                        <Value column="name">25 - 44</Value>
                     </Row>
                 </InlineTable>
                 <Level name="Age" key_column="id" name_column="name" />
