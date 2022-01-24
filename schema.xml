@@ -1859,6 +1859,7 @@
         <Annotation name="dataset_description">Rate of infant deaths per 1,000 live births</Annotation>
         <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/dms/dms.cfm</Annotation>
 
+
         <Table name="infant_mortality" primary_key="county_id" />
 
         <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
@@ -1917,33 +1918,11 @@
             </Hierarchy>
         </Dimension>
 
-        <Dimension name="Health Situation" foreign_key="measure_id">
-            <Hierarchy name="Health Situation" primary_key="id">
-                <InlineTable alias="dim_measure">
+        <Dimension name="Disease" foreign_key="disease_id">
+            <Hierarchy name="Disease" primary_key="id">
+                <InlineTable alias="dim Disease">
                     <ColumnDef name="id" key_type="nontext" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Births</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">2</Value>
-                        <Value column="name">Deaths</Value>
-                    </Row>
-                </InlineTable>
-                <Level name="Health Situation" key_column="id" name_column="name" />
-            </Hierarchy>
-        </Dimension>
-
-        <Dimension name="Health Cause" foreign_key="category_id">
-            <Hierarchy name="Health Cause" primary_key="id">
-                <InlineTable alias="dim_category">
-                    <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Healthy</Value>
-                    </Row>
                     <Row>
                         <Value column="id">2</Value>
                         <Value column="name">Infection</Value>
@@ -2012,12 +1991,21 @@
                         <Value column="id">18</Value>
                         <Value column="name">Pregnancy Related</Value>
                     </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
                 </InlineTable>
-                <Level name="Health Cause" key_column="id" name_column="name" />
+                <Level name="Disease" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
-        <Measure name="Total" column= "value" aggregator= "sum" />
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
 
     </Cube>
 
