@@ -1,4 +1,4 @@
-<Schema name="cfc-database" default_locale="en">
+<Schema name="cfc-database-test" default_locale="en">
 
     <SharedDimension name="County Level" type="geo">
 
