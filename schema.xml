@@ -93,7 +93,7 @@
         <Dimension name="Region Member" foreign_key="region_member">
             <Hierarchy name="Region Member" primary_key="id">
                 <InlineTable alias="dim_region_member">
-                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="id" key_type="text" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">cf</Value>
@@ -184,7 +184,7 @@
         <Dimension name="Region Member" foreign_key="region_member">
             <Hierarchy name="Region Member" primary_key="id">
                 <InlineTable alias="dim_region_member">
-                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="id" key_type="text" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">cf</Value>
@@ -278,7 +278,7 @@
         <Dimension name="Region Member" foreign_key="region_member">
             <Hierarchy name="Region Member" primary_key="id">
                 <InlineTable alias="dim_region_member">
-                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="id" key_type="text" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">cf</Value>
@@ -374,7 +374,7 @@
         <Dimension name="Region Member" foreign_key="region_member">
             <Hierarchy name="Region Member" primary_key="id">
                 <InlineTable alias="dim_region_member">
-                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="id" key_type="text" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">cf</Value>
@@ -507,7 +507,7 @@
         <Dimension name="Region Member" foreign_key="region_member">
             <Hierarchy name="Region Member" primary_key="id">
                 <InlineTable alias="dim_region_member">
-                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="id" key_type="text" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">cf</Value>
@@ -658,7 +658,7 @@
         <Dimension name="Region Member" foreign_key="region_member">
             <Hierarchy name="Region Member" primary_key="id">
                 <InlineTable alias="dim_region_member">
-                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="id" key_type="text" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">cf</Value>
@@ -861,7 +861,7 @@
         <Dimension name="Region Member" foreign_key="region_member">
             <Hierarchy name="Region Member" primary_key="id">
                 <InlineTable alias="dim_region_member">
-                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="id" key_type="text" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">cf</Value>
@@ -969,6 +969,82 @@
 
     </Cube>
 
+
+    <Cube name="Prenatal Care">
+        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
+        <Annotation name="source_description">Prenatal care by county</Annotation>
+        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
+        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Live Birth Data)</Annotation>
+        <Annotation name="dataset_description">Percent of women who receive pregnancy- related health care services during the first trimester of a pregnancy</Annotation>
+        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/births/bd_2016andlater.cfm</Annotation>
+
+        <Table name="prenatal_care" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">African American (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">13</Value>
+                        <Value column="name">Other (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
     <Cube name="Overdose Deaths">
         <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
         <Annotation name="source_description">Overdose deaths by county</Annotation>
@@ -991,7 +1067,7 @@
         <Dimension name="Region Member" foreign_key="region_member">
             <Hierarchy name="Region Member" primary_key="id">
                 <InlineTable alias="dim_region_member">
-                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="id" key_type="text" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
                         <Value column="id">cf</Value>
@@ -1155,80 +1231,6 @@
 
     </Cube>
 
-    <Cube name="Prenatal Care">
-        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
-        <Annotation name="source_description">Prenatal care by county</Annotation>
-        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
-        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Live Birth Data)</Annotation>
-        <Annotation name="dataset_description">Percent of women who receive pregnancy- related health care services during the first trimester of a pregnancy</Annotation>
-        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/births/bd_2016andlater.cfm</Annotation>
-
-        <Table name="prenatal_care" primary_key="county_id" />
-
-        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
-
-        <Dimension name="Year" foreign_key="year">
-            <Hierarchy name="Year">
-                <Level name="Year" key_column="year" key_type="nontext" />
-            </Hierarchy>
-        </Dimension>
-
-        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
-            <Hierarchy name="Cape Fear Member" primary_key="id">
-                <InlineTable alias="dim_cape_fear_member">
-                    <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">0</Value>
-                        <Value column="name">Not a member</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Member</Value>
-                    </Row>
-                </InlineTable>
-                <Level name="Cape Fear Member" key_column="id" name_column="name" />
-            </Hierarchy>
-        </Dimension>
-
-        <Dimension name="Race" foreign_key="race_id">
-            <Hierarchy name="Race" primary_key="id">
-                <InlineTable alias="dim_race">
-                    <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">6</Value>
-                        <Value column="name">African American (non-Hispanic)</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">9</Value>
-                        <Value column="name">Hispanic</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">11</Value>
-                        <Value column="name">White (non-Hispanic)</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">13</Value>
-                        <Value column="name">Other (non-Hispanic)</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">98</Value>
-                        <Value column="name">All</Value>
-                    </Row>
-                </InlineTable>
-                <Level name="Race" key_column="id" name_column="name" />
-            </Hierarchy>
-        </Dimension>
-
-        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
-        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
-        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
-        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
-        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
-        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
-
-    </Cube>
 
     <Cube name="Teen Births">
         <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
