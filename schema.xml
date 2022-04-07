@@ -840,6 +840,135 @@
 
     </Cube>
 
+    <Cube name="Life expectancy">
+        <Annotation name="source_name">Centers for Disease Control &amp; Prevention</Annotation>
+        <Annotation name="source_description">Life expectancy by tract</Annotation>
+        <Annotation name="source_link">https://www.cdc.gov</Annotation>        
+        <Annotation name="dataset_name">National Center for Health Statistics (U.S. Small-Area Life Expectancy Estimates Project Files)</Annotation>
+        <Annotation name="dataset_description">Average number of years of life remaining</Annotation>
+        <Annotation name="dataset_link">https://www.cdc.gov/nchs/nvss/usaleep/usaleep.html#life-expectancy</Annotation>
+
+        <Table name="life_expectancy" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Region Member" foreign_key="region_member">
+            <Hierarchy name="Region Member" primary_key="id">
+                <InlineTable alias="dim_region_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">cf</Value>
+                        <Value column="name">Cape Fear</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">cm</Value>
+                        <Value column="name">Charlotte Metro</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">cp</Value>
+                        <Value column="name">Coastal Plain</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">mt</Value>
+                        <Value column="name">Mountains</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">pt</Value>
+                        <Value column="name">Piedmont Triad</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">sh</Value>
+                        <Value column="name">Sandhills</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">tw</Value>
+                        <Value column="name">Tidewater</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">ta</Value>
+                        <Value column="name">Triangle</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">state</Value>
+                        <Value column="name">State</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Region Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">State Level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">County Level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Tract Level</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Value" column="indicator_value" aggregator="avg" />
+        <Measure name="Indicator Value First Quartile" column="indicator_value_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Value Third Quartile" column="indicator_value_3rd_quartile" aggregator="avg" />
+        <Measure name="Indicator Value Median" column="indicator_value_median" aggregator="avg" />
+        <Measure name="Indicator Value Apc" column="indicator_value_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
+
     <Cube name="Overdose Deaths">
         <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
         <Annotation name="source_description">Overdose deaths by county</Annotation>
@@ -858,21 +987,68 @@
             </Hierarchy>
         </Dimension>
 
-        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
-            <Hierarchy name="Cape Fear Member" primary_key="id">
-                <InlineTable alias="dim_cape_fear_member">
+
+        <Dimension name="Region Member" foreign_key="region_member">
+            <Hierarchy name="Region Member" primary_key="id">
+                <InlineTable alias="dim_region_member">
                     <ColumnDef name="id" key_type="nontext" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
-                        <Value column="id">0</Value>
-                        <Value column="name">Not a member</Value>
+                        <Value column="id">cf</Value>
+                        <Value column="name">Cape Fear</Value>
                     </Row>
                     <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Member</Value>
+                        <Value column="id">cm</Value>
+                        <Value column="name">Charlotte Metro</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">cp</Value>
+                        <Value column="name">Coastal Plain</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">mt</Value>
+                        <Value column="name">Mountains</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">pt</Value>
+                        <Value column="name">Piedmont Triad</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">sh</Value>
+                        <Value column="name">Sandhills</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">tw</Value>
+                        <Value column="name">Tidewater</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">ta</Value>
+                        <Value column="name">Triangle</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">state</Value>
+                        <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+                <Level name="Region Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">State Level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">County Level</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Data" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -1266,102 +1442,7 @@
 
 
 
-    <Cube name="Life expectancy">
-        <Annotation name="source_name">Centers for Disease Control &amp; Prevention</Annotation>
-        <Annotation name="source_description">Life expectancy by tract</Annotation>
-        <Annotation name="source_link">https://www.cdc.gov</Annotation>        
-        <Annotation name="dataset_name">National Center for Health Statistics (U.S. Small-Area Life Expectancy Estimates Project Files)</Annotation>
-        <Annotation name="dataset_description">Average number of years of life remaining</Annotation>
-        <Annotation name="dataset_link">https://www.cdc.gov/nchs/nvss/usaleep/usaleep.html#life-expectancy</Annotation>
 
-        <Table name="life_expectancy" primary_key="tract_id" />
-
-        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
-
-        <Dimension name="Year" foreign_key="year">
-            <Hierarchy name="Year">
-                <Level name="Year" key_column="year" key_type="nontext" />
-            </Hierarchy>
-        </Dimension>
-
-        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
-            <Hierarchy name="Cape Fear Member" primary_key="id">
-                <InlineTable alias="dim_cape_fear_member">
-                    <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">0</Value>
-                        <Value column="name">Not a member</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Member</Value>
-                    </Row>
-                </InlineTable>
-                <Level name="Cape Fear Member" key_column="id" name_column="name" />
-            </Hierarchy>
-        </Dimension>
-
-        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
-            <Hierarchy name="Aggregated Tract Data" primary_key="id">
-                <InlineTable alias="dim_aggregated_data">
-                    <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">0</Value>
-                        <Value column="name">No aggregated data</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Aggregated data</Value>
-                    </Row>
-                </InlineTable>
-                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
-            </Hierarchy>
-        </Dimension>
-
-        <Dimension name="Race" foreign_key="race_id">
-            <Hierarchy name="Race" primary_key="id">
-                <InlineTable alias="dim_race">
-                    <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">American Indian or Alaskan Native</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">3</Value>
-                        <Value column="name">Asian</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">5</Value>
-                        <Value column="name">Black</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">9</Value>
-                        <Value column="name">Hispanic</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">10</Value>
-                        <Value column="name">White</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">98</Value>
-                        <Value column="name">All</Value>
-                    </Row>
-                </InlineTable>
-                <Level name="Race" key_column="id" name_column="name" />
-            </Hierarchy>
-        </Dimension>
-
-        <Measure name="Indicator Value" column="indicator_value" aggregator="avg" />
-        <Measure name="Indicator Value First Quartile" column="indicator_value_1st_quartile" aggregator="avg" />
-        <Measure name="Indicator Value Third Quartile" column="indicator_value_3rd_quartile" aggregator="avg" />
-        <Measure name="Indicator Value Median" column="indicator_value_median" aggregator="avg" />
-        <Measure name="Indicator Value Apc" column="indicator_value_apc" aggregator="avg" />
-        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
-
-    </Cube>
 
 
 
