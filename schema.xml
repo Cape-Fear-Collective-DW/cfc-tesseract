@@ -126,7 +126,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -243,7 +243,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -358,7 +358,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -632,7 +632,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -904,7 +904,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -1042,7 +1042,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -1178,7 +1178,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -1386,7 +1386,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -1610,7 +1610,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -1751,7 +1751,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -1895,7 +1895,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -1986,7 +1986,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -2080,7 +2080,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -2176,7 +2176,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -2309,7 +2309,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -2460,7 +2460,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -2663,7 +2663,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -2792,7 +2792,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -2977,7 +2977,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -3096,7 +3096,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -3186,7 +3186,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -3321,7 +3321,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -3510,7 +3510,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -3689,7 +3689,7 @@
                         <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Region" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
