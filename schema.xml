@@ -3818,4 +3818,192 @@
 
     </Cube>
 
+    <Cube name="Third Grade Reading">
+        <Annotation name="source_name">N.C. Department of Public Instruction</Annotation>
+        <Annotation name="source_description">Third grade reading population by county</Annotation>
+        <Annotation name="source_link">https://www.dpi.nc.gov/</Annotation>        
+        <Annotation name="dataset_name">Accountability Datasets &amp; Reports (School Assessment &amp; Other Indicator Data)</Annotation>
+        <Annotation name="dataset_description">Percentage of children reading at a proficient level or above based on third grade End of Grade exams</Annotation>
+        <Annotation name="dataset_link">https://www.dpi.nc.gov/districts-schools/testing-and-school-accountability/school-accountability-and-reporting/accountability-data-sets-and-reports</Annotation>
+
+        <Table name="third_grade_reading" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+        <DimensionUsage foreign_key="lea_code" source="LEA" name="LEA" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Region" foreign_key="region_member">
+            <Hierarchy name="Region" primary_key="id">
+                <InlineTable alias="dim_region_member">
+                    <ColumnDef name="id" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">cf</Value>
+                        <Value column="name">Cape Fear</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">cm</Value>
+                        <Value column="name">Charlotte Metro</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">cp</Value>
+                        <Value column="name">Coastal Plain</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">mt</Value>
+                        <Value column="name">Mountains</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">pt</Value>
+                        <Value column="name">Piedmont Triad</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">sh</Value>
+                        <Value column="name">Sandhills</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">tw</Value>
+                        <Value column="name">Tidewater</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">ta</Value>
+                        <Value column="name">Triangle</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">state</Value>
+                        <Value column="name">State</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">State Level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">County Level</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Gender" foreign_key="gender_id">
+            <Hierarchy name="Gender" primary_key="id">
+                <InlineTable alias="dim_gender">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Male</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Female</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Gender" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">African American</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">Biracial</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">15</Value>
+                        <Value column="name">American Indian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Achievement Level" foreign_key="achievement_level_id">
+            <Hierarchy name="Achievement Level" primary_key="id">
+                <InlineTable alias="dim_achievement_level">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Level 1</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Level 2</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Level 3</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">Level 4</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Level 5</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">College and career ready</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Grade level proficient</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Achievement Level" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
 </Schema>
