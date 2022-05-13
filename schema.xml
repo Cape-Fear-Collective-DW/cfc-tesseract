@@ -3208,19 +3208,10 @@
                         <Value column="name">County Level</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Aggregated Data" key_column="id" name_column="name" />
-            </Hierarchy>
-        </Dimension>
-
-        <Dimension name="Indicator Percentage Apc" foreign_key="indicator_pct_apc">
-            <Hierarchy name="Indicator Percentage Apc" primary_key="indicator_pct_apc">
-                <Level name="Indicator Percentage Apc" key_column="indicator_pct_apc" key_type="text"/>
-            </Hierarchy>
-        </Dimension>
-
-        <Dimension name="Indicator Target" foreign_key="hnc_target">
-            <Hierarchy name="Indicator Target" primary_key="hnc_target">
-                <Level name="Indicator Target" key_column="hnc_target" key_type="text"/>
+                <Level name="Aggregated Data" key_column="id" name_column="name">
+                    <Property name="Indicator Percentage Apc" column="indicator_pct_apc" />
+                    <Property name="Indicator Target" column="indicator_pct_apc" />
+                </Level>
             </Hierarchy>
         </Dimension>
 
