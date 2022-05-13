@@ -1,12 +1,12 @@
 <Schema name="cfc" default_locale="en">
-    <Cube name="Sugar Sweetened Beverages">
+    <Cube name="Adults Diabetes">
         <Annotation name="source_name">Novant Health New Hanover Regional Medical Center</Annotation>
         <Annotation name="source_description">Sugar Sweetened Beverages by County</Annotation>
         <Annotation name="source_link">https://www.nhrmc.org/</Annotation>        
         <Annotation name="dataset_name">Diabetes Patient Registry (Aggregate Census Tract Data)</Annotation>
         <Annotation name="dataset_description">Percent of youth and adults reporting consumption of one or more sugar- sweetened beverages (SSBs) per day</Annotation>
 
-        <Table name="sugar_sweetened_beverages" primary_key="tract_id" />
+        <Table name="crude_diabetes_adults" primary_key="tract_id" />
 
         <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
 
@@ -81,100 +81,6 @@
                     </Row>
                 </InlineTable>
                 <Level name="Aggregated Data" key_column="id" name_column="name" />
-            </Hierarchy>
-        </Dimension>
-
-        <Dimension name="Gender" foreign_key="gender_id">
-            <Hierarchy name="Gender" primary_key="id">
-                <InlineTable alias="dim_gender">
-                    <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Male</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">2</Value>
-                        <Value column="name">Female</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">3</Value>
-                        <Value column="name">All</Value>
-                    </Row>
-                </InlineTable>
-                <Level name="Gender" key_column="id" name_column="name" />
-            </Hierarchy>
-        </Dimension>
-
-        <Dimension name="Race" foreign_key="race_id">
-            <Hierarchy name="Race" primary_key="id">
-                <InlineTable alias="dim_race">
-                    <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">American Indian or Alaskan Native</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">3</Value>
-                        <Value column="name">Asian</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">5</Value>
-                        <Value column="name">Black</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">7</Value>
-                        <Value column="name">Hawaiian Native or Pacific Islander</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">10</Value>
-                        <Value column="name">White</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">12</Value>
-                        <Value column="name">Other</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">14</Value>
-                        <Value column="name">Biracial</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">98</Value>
-                        <Value column="name">All</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">99</Value>
-                        <Value column="name">Unknown</Value>
-                    </Row>
-                </InlineTable>
-                <Level name="Race" key_column="id" name_column="name" />
-            </Hierarchy>
-        </Dimension>
-
-        <Dimension name="Ethnicity" foreign_key="ethnicity_id">
-            <Hierarchy name="Ethnicity" primary_key="id">
-                <InlineTable alias="dim_ethnicity">
-                    <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Hispanic</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">2</Value>
-                        <Value column="name">Non-Hispanic</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">3</Value>
-                        <Value column="name">Unknown</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">9</Value>
-                        <Value column="name">All</Value>
-                    </Row>
-                </InlineTable>
-                <Level name="Ethnicity" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
