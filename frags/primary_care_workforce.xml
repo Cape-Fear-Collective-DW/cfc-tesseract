@@ -75,16 +75,26 @@
                         <Value column="name">County Level</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Aggregated Data" key_column="id" name_column="name">
-                    <Property name="Indicator Percentage Apc" column="indicator_pct_apc" />
-                    <Property name="Indicator Target" column="indicator_pct_apc" />
-                </Level>
+                <Level name="Aggregated Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Indicator Ratio" foreign_key="indicator_ratio">
+            <Hierarchy name="Indicator Ratio" primary_key="indicator_ratio">
+                <Level name="Indicator Ratio" key_column="indicator_ratio" key_type="text"/>
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Indicator Target" foreign_key="hnc_target">
+            <Hierarchy name="Indicator Target" primary_key="hnc_target">
+                <Level name="Indicator Target" key_column="hnc_target" key_type="text"/>
             </Hierarchy>
         </Dimension>
 
         <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
         <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
         <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
 
     </Cube>
 </Schema>
