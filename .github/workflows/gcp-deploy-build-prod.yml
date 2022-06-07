@@ -1,7 +1,7 @@
 # github actions workflow used for building a new docker image of tesseract-olap cube when there is a push maked to the develop branch 
 # with detected changes on the schema.xml file or the Dockerfile. after the building it's compleated, the workflow deploys that image 
 # on a GOOGLE CLOUD RUN instance with the respective keys storaged on the github secrets from the repository page.
-name: Build and Deploy a Docker Image of Tesseract on GCP [Dev]
+name: Build and Deploy a Docker Image of Tesseract on GCP [Prod]
 
 # trigger the workflow when a push is made on the develop branch
 on:
@@ -11,12 +11,12 @@ on:
       - 'schema.xml'
       - 'Dockerfile'
     branches:
-      - develop
+      - main
 
 # environment variables used on the respective workflow
 env:
   # docker variables
-  IMAGE_NAME: cfc-tesseract-dev
+  IMAGE_NAME: cfc-tesseract
   # google cloud platform credentials (they come from github secrets)
   GCP_ARTIFACT_REGISTRY_REPO_NAME: ${{ secrets.GCP_ARTIFACT_REGISTRY_REPO_NAME }}
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
