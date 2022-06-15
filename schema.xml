@@ -1,22 +1,2992 @@
-<Schema name="default">
-    <Cube name="GDP">
+<Schema name="cfc-database" default_locale="en">
 
-        <Table name="gdp_fact"/>
+    <SharedDimension name="County Level" type="geo">
 
-        <Dimension name="WE MADE IT" foreign_key="country_id">
-            <Hierarchy name="Country" primary_key="country_id">
-                <Table name="dim_country"/>
-                <Level name="Country" key_column="country_id" name_column="country_name" key_type="nontext"/>
+        <Hierarchy name="County Level">
+            <Table name="dim_shared_county" />
+
+            <Level name="Country" key_column="country_id" name_column="country" key_type="text" />
+            <Level name="State" key_column="state_id" name_column="state" key_type="text" />
+            <Level name="County" key_column="county_id" name_column="county" key_type="text" />
+        </Hierarchy>
+    </SharedDimension>
+
+    <SharedDimension name="Tract Level" type="geo">
+
+        <Hierarchy name="Tract Level">
+            <Table name="dim_shared_tract" />
+
+            <Level name="Country" key_column="country_id" name_column="country" key_type="text" />
+            <Level name="State" key_column="state_id" name_column="state" key_type="text" />
+            <Level name="County" key_column="county_id" name_column="county" key_type="text" />
+            <Level name="Tract" key_column="tract_id" name_column="tract_fips" key_type="text" />
+        </Hierarchy>
+    </SharedDimension>
+
+    <SharedDimension name="Region Level" type="geo">
+        <Hierarchy name="Region Level">
+            <Table name="dim_shared_region" />
+
+            <Level name="Region" key_column="region_id" name_column="region" key_type="text" />
+            <Level name="County" key_column="county_id" name_column="county" key_type="text" />
+        </Hierarchy>
+    </SharedDimension>
+
+    <SharedDimension name="Date Day" type="time">
+        
+        <Hierarchy name="Date" primary_key="date_id">
+            <Table name="dim_shared_date_month_day" />
+
+            <Level name="Year" key_column="year" />
+            <Level name="Quarter" key_column="quarter_id" name_column="quarter">
+                <Property name="Quarter ES" column="quarter" caption_set="es" />
+            </Level>
+            <Level name="Month" key_column="month_id" name_column="month">
+                <Property name="Month ES" column="month" caption_set="es" />
+            </Level>
+            <Level name="Date" key_column="date_id" name_column="date">
+                <Property name="Date ES" column="date" caption_set="es" />
+            </Level>
+        </Hierarchy>
+    </SharedDimension>
+
+    <SharedDimension name="LEA">
+        <Hierarchy name="LEA">
+            <Table name="dim_shared_lea_codes" />
+
+            <Level name="LEA" key_column="lea_code" name_column="district_name" key_type="text" />
+        </Hierarchy>
+    </SharedDimension>
+
+    <Cube name="Regions">
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_description">Regions</Annotation>
+        <Annotation name="dataset_name">Regions</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
+
+        <Table name="region_table" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="Region Level" name="Geography" />
+
+        <Measure name="Counties" column= "count" aggregator= "sum" />
+
+    </Cube>
+
+    <Cube name="Uninsured Population">
+        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_description">Uninsured population by tract</Annotation>
+        <Annotation name="source_link">https://www.census.gov/</Annotation>        
+        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Detailed Tables (C27001A-I)</Annotation>
+        <Annotation name="dataset_description">Population under age 65 without health insurance</Annotation>
+        <Annotation name="dataset_link">"https://data.census.gov/cedsci/table?t=Health%20Insurance&amp;tid=ACSDT5Y2019.C27001A"</Annotation>
+
+        <Table name="uninsured_population" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">2+ races</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="Uninsured Projections">
+        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_description">Uninsured population projections by county</Annotation>
+        <Annotation name="source_link">https://www.census.gov/</Annotation>        
+        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Detailed Tables (C27001A-I)</Annotation>
+        <Annotation name="dataset_description">Population under age 65 without health insurance</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?t=Health%20Insurance&amp;tid=ACSDT5Y2019.C27001A</Annotation>
+
+
+        <Table name="uninsured_projections" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+        <DimensionUsage foreign_key="date_id" source="Date Day" name="Date Day" />
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">2+ races</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Projection Lowerbound" column="projection_lowerbound" aggregator="avg" />
+        <Measure name="Projection Upperbound" column="projection_upperbound" aggregator="avg" />
+        <Measure name="Indicator Percentage First Quartile" column="indicator_pct_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Percentage Third Quartile" column="indicator_pct_3rd_quartile" aggregator="avg" />
+
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
+ 
+    <Cube name="Unemployment Population">
+        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_description">Unemployment population by tract</Annotation>
+        <Annotation name="source_link">https://www.census.gov/</Annotation>        
+        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S2301)</Annotation>
+        <Annotation name="dataset_description">Percentage of individuals aged 16 and older who are in the labor force, but unemployed</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S2301&amp;tid=ACSST5Y2019.S2301</Annotation>
+
+        <Table name="unemployment_population" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">2+ races</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Gender" foreign_key="gender_id">
+            <Hierarchy name="Gender" primary_key="id">
+                <InlineTable alias="dim_gender">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Male</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Female</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Gender" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Age" foreign_key="age_id">
+            <Hierarchy name="Age" primary_key="id">
+                <InlineTable alias="dim_age">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">16+</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">16 - 19</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">20 - 24</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">25 - 44</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">45 - 54</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">55 - 64</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">65 - 74</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">75+</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">20 - 64</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Age" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="Unemployment Projections">
+        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_description">Unemployment population projections by county</Annotation>
+        <Annotation name="source_link">https://www.census.gov/</Annotation>        
+        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S2301)</Annotation>
+        <Annotation name="dataset_description">Percentage of individuals aged 16 and older who are in the labor force, but unemployed</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S2301&amp;tid=ACSST5Y2019.S2301</Annotation>
+
+        <Table name="unemployment_projections" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+        <DimensionUsage foreign_key="date_id" source="Date Day" name="Date Day" />
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">2+ races</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Gender" foreign_key="gender_id">
+            <Hierarchy name="Gender" primary_key="id">
+                <InlineTable alias="dim_gender">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Male</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Female</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Gender" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Age" foreign_key="age_id">
+            <Hierarchy name="Age" primary_key="id">
+                <InlineTable alias="dim_age">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">16+</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">16 - 19</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">20 - 24</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">25 - 29</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">30 - 34</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">35 - 44</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">45 - 54</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">55 - 64</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">8</Value>
+                        <Value column="name">65 - 74</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">75+</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">18</Value>
+                        <Value column="name">20 - 64</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">19</Value>
+                        <Value column="name">25 - 44</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Age" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Projection Lowerbound" column="projection_lowerbound" aggregator="avg" />
+        <Measure name="Projection Upperbound" column="projection_upperbound" aggregator="avg" />
+        <Measure name="Indicator Percentage First Quartile" column="indicator_pct_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Percentage Third Quartile" column="indicator_pct_3rd_quartile" aggregator="avg" />
+
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="Poverty Population">
+        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_description">Population living in poverty by tract</Annotation>
+        <Annotation name="source_link">https://www.census.gov/</Annotation>        
+        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S1701)</Annotation>
+        <Annotation name="dataset_description">Percentage of individuals with household incomes at or below 200% of the FPL</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S1701&amp;tid=ACSST5Y2019.S1701</Annotation>
+
+        <Table name="poverty_population" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">2+ races</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Gender" foreign_key="gender_id">
+            <Hierarchy name="Gender" primary_key="id">
+                <InlineTable alias="dim_gender">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Male</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Female</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Gender" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Age" foreign_key="age_id">
+            <Hierarchy name="Age" primary_key="id">
+                <InlineTable alias="dim_age">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">&lt; 5</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">5</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">6 - 11</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">12 - 14</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">15</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">16 - 17</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">18 - 24</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">8</Value>
+                        <Value column="name">25 - 34</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">35 - 44</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">45 - 54</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">55 - 64</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">65 - 74</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">13</Value>
+                        <Value column="name">75+</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">99</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Age" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Poverty level" foreign_key="poverty_level_id">
+            <Hierarchy name="Poverty level" primary_key="id">
+                <InlineTable alias="dim_poverty_level">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Living below the 50% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Living below the 100% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Living below the 125% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">Living below the 150% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Living below the 185% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">Living below the 200% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Living below the 300% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">8</Value>
+                        <Value column="name">Living below the 400% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Living below the 500% federal poverty level</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Poverty level" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="Poverty Projections">
+        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_description">Population living in poverty projections by county</Annotation>
+        <Annotation name="source_link">https://www.census.gov/</Annotation>        
+        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S1701)</Annotation>
+        <Annotation name="dataset_description">Percentage of individuals with household incomes at or below 200% of the FPL</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S1701&amp;tid=ACSST5Y2019.S1701</Annotation>
+
+        <Table name="poverty_projections" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+        <DimensionUsage foreign_key="date_id" source="Date Day" name="Date Day" />
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Gender" foreign_key="gender_id">
+            <Hierarchy name="Gender" primary_key="id">
+                <InlineTable alias="dim_gender">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Male</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Female</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Gender" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">Multiracial</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Age" foreign_key="age_id">
+            <Hierarchy name="Age" primary_key="id">
+                <InlineTable alias="dim_age">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">&lt; 5</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">5</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">6 - 11</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">12 - 14</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">15</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">16 - 17</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">18 - 24</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">8</Value>
+                        <Value column="name">25 - 34</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">35 - 44</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">45 - 54</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">55 - 64</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">65 - 74</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">13</Value>
+                        <Value column="name">75+</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">99</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Age" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Poverty level" foreign_key="poverty_level_id">
+            <Hierarchy name="Poverty level" primary_key="id">
+                <InlineTable alias="dim_poverty_level">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Living below the 50% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Living below the 100% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Living below the 125% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">Living below the 150% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Living below the 185% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">Living below the 200% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Living below the 300% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">8</Value>
+                        <Value column="name">Living below the 400% federal poverty level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Living below the 500% federal poverty level</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Poverty level" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Projection Lowerbound" column="projection_lowerbound" aggregator="avg" />
+        <Measure name="Projection Upperbound" column="projection_upperbound" aggregator="avg" />
+        <Measure name="Indicator Percentage First Quartile" column="indicator_pct_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Percentage Third Quartile" column="indicator_pct_3rd_quartile" aggregator="avg" />
+
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="Severe Housing Population">
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_description">Severe Housing Problems Population by tract</Annotation>
+        <Annotation name="source_link">https://capefearcollective.org/</Annotation>        
+        <Annotation name="dataset_name">North Carolina Severe Housing Problems Model Data</Annotation>
+        <Annotation name="dataset_description">Percentage of households with at least 1 of four HUD-designated housing problems</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org/insights/data-library/</Annotation>
+
+        <Table name="severe_housing_population" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
         <Dimension name="Year" foreign_key="year">
-            <Hierarchy name="Year" primary_key="year">
-                <Level name="Year" key_column="year" key_type="nontext"/>
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
             </Hierarchy>
         </Dimension>
 
-        <Measure name="Average GDP" column="gdp_value" aggregator="avg" visible="true"/>
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Native American or Alaskan Native (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">Asian (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">Black (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">8</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">13</Value>
+                        <Value column="name">Other (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
 
     </Cube>
+
+    <Cube name="Severe Housing Projections">
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_description">Severe Housing Problems Projections by county</Annotation>
+        <Annotation name="source_link">https://capefearcollective.org/</Annotation>        
+        <Annotation name="dataset_name">North Carolina Severe Housing Problems Model Data</Annotation>
+        <Annotation name="dataset_description">Percentage of households with at least 1 of four HUD-designated housing problems</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org/insights/data-library/</Annotation>
+
+        <Table name="severe_housing_projection" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+        <DimensionUsage foreign_key="date_id" source="Date Day" name="Date Day" />
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Native American or Alaskan Native (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">Asian (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">Black (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">8</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">13</Value>
+                        <Value column="name">Other (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Projection Lowerbound" column="projection_lowerbound" aggregator="avg" />
+        <Measure name="Projection Upperbound" column="projection_upperbound" aggregator="avg" />
+        <Measure name="Indicator Percentage First Quartile" column="indicator_pct_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Percentage Third Quartile" column="indicator_pct_3rd_quartile" aggregator="avg" />
+
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="ACES Population">
+        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_description">Adverse Childhood Experiences by tract</Annotation>
+        <Annotation name="source_link">https://www.census.gov/</Annotation>        
+        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Detailed Tables (B14005)</Annotation>
+        <Annotation name="dataset_description">Percentage of children who have experienced two or more of the following: hard to get by on money, parent/guardian divorced or separated, parent/guardian died, parent/guardian served time in jail, saw or heard violence in the home, victim/witness of neighborhood violence, lived with anyone mentally ill, suicidal or depressed, live with anyone with alcohol or drug problem, often treated or judged unfairly due to race/ethnicity</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=16%20to%2019&amp;tid=ACSDT5Y2019.B14005</Annotation>
+
+        <Table name="adverse_childhood_experiences_population" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Gender" foreign_key="gender_id">
+            <Hierarchy name="Gender" primary_key="id">
+                <InlineTable alias="dim_gender">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Male</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Female</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Gender" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Value First Quartile" column="indicator_value_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Value Third Quartile" column="indicator_value_3rd_quartile" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="ACES Projections">
+        <Annotation name="source_name">U.S. Census Bureau</Annotation>
+        <Annotation name="source_description">Adverse Childhood Experiences Projections by county</Annotation>
+        <Annotation name="source_link">https://www.census.gov/</Annotation>        
+        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Detailed Tables (B14005)</Annotation>
+        <Annotation name="dataset_description">Percentage of children who have experienced two or more of the following: hard to get by on money, parent/guardian divorced or separated, parent/guardian died, parent/guardian served time in jail, saw or heard violence in the home, victim/witness of neighborhood violence, lived with anyone mentally ill, suicidal or depressed, live with anyone with alcohol or drug problem, often treated or judged unfairly due to race/ethnicity</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=16%20to%2019&amp;tid=ACSDT5Y2019.B14005</Annotation>
+
+        <Table name="adverse_childhood_experiences_projection" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+        <DimensionUsage foreign_key="date_id" source="Date Day" name="Date Day" />
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Gender" foreign_key="gender_id">
+            <Hierarchy name="Gender" primary_key="id">
+                <InlineTable alias="dim_gender">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Male</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Female</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Gender" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Projection Lowerbound" column="projection_lowerbound" aggregator="avg" />
+        <Measure name="Projection Upperbound" column="projection_upperbound" aggregator="avg" />
+        <Measure name="Indicator Percentage First Quartile" column="indicator_pct_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Percentage Third Quartile" column="indicator_pct_3rd_quartile" aggregator="avg" />
+
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="Incarcerated Population">
+        <Annotation name="source_name">N.C. Department of Public Safety</Annotation>
+        <Annotation name="source_description">Incarcerated population by county</Annotation>
+        <Annotation name="source_link">https://www.ncdps.gov/</Annotation>        
+        <Annotation name="dataset_name">Office of Research and Planning (Automated System Query Custom Offender Reports)</Annotation>
+        <Annotation name="dataset_description">Incarceration in prisons per 100,000 population</Annotation>
+        <Annotation name="dataset_link">https://webapps.doc.state.nc.us/apps/asqExt/ASQ</Annotation>
+
+        <Table name="incarcerated_population" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Gender" foreign_key="gender_id">
+            <Hierarchy name="Gender" primary_key="id">
+                <InlineTable alias="dim_gender">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Male</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Female</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Gender" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">15</Value>
+                        <Value column="name">American Indian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">99</Value>
+                        <Value column="name">Unknown</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="Overdose Deaths">
+        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
+        <Annotation name="source_description">Overdose deaths by county</Annotation>
+        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
+        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Detailed Mortality Statistics)</Annotation>
+        <Annotation name="dataset_description">Number of persons who die as a result of drug poisoning per 100,000 population</Annotation>
+        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/dms/dms.cfm</Annotation>
+
+        <Table name="overdose_deaths" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">African American (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">13</Value>
+                        <Value column="name">Other (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Death Cause" foreign_key="death_cause">
+            <Hierarchy name="Death Cause" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Assault</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Suicide</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Accident</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">Undetermined</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Death Cause" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Drug Related" foreign_key="drug_related">
+            <Hierarchy name="Drug Related" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Antiepileptic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Narcotics</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">ANS Drugs</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">Non-Opioid</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Drug Related" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="Prenatal Care">
+        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
+        <Annotation name="source_description">Prenatal care by county</Annotation>
+        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
+        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Live Birth Data)</Annotation>
+        <Annotation name="dataset_description">Percent of women who receive pregnancy- related health care services during the first trimester of a pregnancy</Annotation>
+        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/births/bd_2016andlater.cfm</Annotation>
+
+        <Table name="prenatal_care" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">African American (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">13</Value>
+                        <Value column="name">Other (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="Teen Births">
+        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
+        <Annotation name="source_description">Teen births by county</Annotation>
+        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
+        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Live Birth Data)</Annotation>
+        <Annotation name="dataset_description">Number of births to girls aged 15-19 per 1,000 population</Annotation>
+        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/births/bd_2016andlater.cfm</Annotation>
+
+        <Table name="teen_births" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">African American</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="Infant Mortality">
+        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
+        <Annotation name="source_description">Infant mortality by county</Annotation>
+        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
+        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Detailed Mortality Statistics)</Annotation>
+        <Annotation name="dataset_description">Rate of infant deaths per 1,000 live births</Annotation>
+        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/dms/dms.cfm</Annotation>
+
+
+        <Table name="infant_mortality" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">African American (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">13</Value>
+                        <Value column="name">Other (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Disease" foreign_key="disease_id">
+            <Hierarchy name="Disease" primary_key="id">
+                <InlineTable alias="dim Disease">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Infection</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Metabolic Disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">Nervous Disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Circulatory Disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">Respiratory Disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Genitourinary Disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">8</Value>
+                        <Value column="name">Perinatal Condition</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Congenital Abnormality</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">Miscellaneous</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">External Conditions</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Neoplasm</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">13</Value>
+                        <Value column="name">Blood Disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">Digestive Disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">15</Value>
+                        <Value column="name">Musculoskeletal Disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">16</Value>
+                        <Value column="name">Mental Disorder</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">17</Value>
+                        <Value column="name">Ear Disease</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">18</Value>
+                        <Value column="name">Pregnancy Related</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Disease" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="Access to Exercise">
+        <Annotation name="source_name">County Health Rankings &amp; Roadmaps</Annotation>
+        <Annotation name="source_description">Access to exercise opportunities by county</Annotation>
+        <Annotation name="source_link">https://www.countyhealthrankings.org/</Annotation>        
+        <Annotation name="dataset_name">North Carolina Rankings Data (Ranked Measure Data)</Annotation>
+        <Annotation name="dataset_description">Percentage of the population living half a mile from a park in any area, one mile from a recreational center in a metropolitan area, or three miles from a recreational center in a rural area</Annotation>
+        <Annotation name="dataset_link">https://www.countyhealthrankings.org/app/north-carolina/2021/downloads</Annotation>
+
+        <Table name="access_exercise" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="Third Grade Reading">
+        <Annotation name="source_name">N.C. Department of Public Instruction</Annotation>
+        <Annotation name="source_description">Third grade reading population by county</Annotation>
+        <Annotation name="source_link">https://www.dpi.nc.gov/</Annotation>        
+        <Annotation name="dataset_name">Accountability Datasets &amp; Reports (School Assessment &amp; Other Indicator Data)</Annotation>
+        <Annotation name="dataset_description">Percentage of children reading at a proficient level or above based on third grade End of Grade exams</Annotation>
+        <Annotation name="dataset_link">https://www.dpi.nc.gov/districts-schools/testing-and-school-accountability/school-accountability-and-reporting/accountability-data-sets-and-reports</Annotation>
+
+        <Table name="third_grade_reading" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+        <DimensionUsage foreign_key="lea_code" source="LEA" name="LEA" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Gender" foreign_key="gender_id">
+            <Hierarchy name="Gender" primary_key="id">
+                <InlineTable alias="dim_gender">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Male</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Female</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Gender" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">African American</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">Biracial</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">15</Value>
+                        <Value column="name">American Indian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Achievement Level" foreign_key="achievement_level_id">
+            <Hierarchy name="Achievement Level" primary_key="id">
+                <InlineTable alias="dim_achievement_level">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Level 1</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Level 2</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Level 3</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">Level 4</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Level 5</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">College and career ready</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Grade level proficient</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Achievement Level" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="Suicides">
+        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
+        <Annotation name="source_description">Suicides by county</Annotation>
+        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
+        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Detailed Mortality Statistics)</Annotation>
+        <Annotation name="dataset_description">Age-adjusted number of deaths attributable to self-harm per 100,000 population</Annotation>
+        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/dms/dms.cfm</Annotation>
+
+        <Table name="suicides" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">African American</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">11</Value>
+                        <Value column="name">White (non-Hispanic)</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">15</Value>
+                        <Value column="name">American Indian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Age" foreign_key="age_id">
+            <Hierarchy name="Age" primary_key="id">
+                <InlineTable alias="dim_age">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">0 - 9</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">10 - 19</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">20 - 29</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">4</Value>
+                        <Value column="name">30 - 44</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">45 - 54</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">6</Value>
+                        <Value column="name">55 - 64</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">65 - 74</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">8</Value>
+                        <Value column="name">75 - 84</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">85+</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Age" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="HIV Diagnoses">
+        <Annotation name="source_name">Centers for Disease Control &amp; Prevention</Annotation>
+        <Annotation name="source_description">HIV diagnoses by county</Annotation>
+        <Annotation name="source_link">https://www.cdc.gov</Annotation>        
+        <Annotation name="dataset_name">National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention (AtlasPlus Data)</Annotation>
+        <Annotation name="dataset_description">Number of new HIV diagnoses per 100,000 population</Annotation>
+        <Annotation name="dataset_link">https://www.cdc.gov/nchhstp/atlas/index.htm</Annotation>
+
+        <Table name="hiv_diagnoses" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">African American</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">Multiracial</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="Life expectancy">
+        <Annotation name="source_name">Centers for Disease Control &amp; Prevention</Annotation>
+        <Annotation name="source_description">Life expectancy by tract</Annotation>
+        <Annotation name="source_link">https://www.cdc.gov</Annotation>        
+        <Annotation name="dataset_name">National Center for Health Statistics (U.S. Small-Area Life Expectancy Estimates Project Files)</Annotation>
+        <Annotation name="dataset_description">Average number of years of life remaining</Annotation>
+        <Annotation name="dataset_link">https://www.cdc.gov/nchs/nvss/usaleep/usaleep.html#life-expectancy</Annotation>
+
+        <Table name="life_expectancy" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Value" column="indicator_value" aggregator="avg" />
+        <Measure name="Indicator Value First Quartile" column="indicator_value_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Value Third Quartile" column="indicator_value_3rd_quartile" aggregator="avg" />
+        <Measure name="Indicator Value Median" column="indicator_value_median" aggregator="avg" />
+        <Measure name="Indicator Value Apc" column="indicator_value_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="Access Healthy Food">
+        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_description">Access to healthy food by tract</Annotation>
+        <Annotation name="source_link">https://capefearcollective.org/</Annotation>        
+        <Annotation name="dataset_name">North Carolina Food Hardship Index</Annotation>
+        <Annotation name="dataset_description">Percentage of people who are low-income that are not in close proximity to a grocery store</Annotation>
+        <Annotation name="dataset_link">https://capefearcollective.org/insights/data-library/</Annotation>
+
+        <Table name="access_to_healthy_foods" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Value" column="indicator_value" aggregator="avg" />
+        <Measure name="Indicator Value First Quartile" column="indicator_value_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Value Third Quartile" column="indicator_value_3rd_quartile" aggregator="avg" />
+        <Measure name="Indicator Value Median" column="indicator_value_median" aggregator="avg" />
+        <Measure name="Indicator Value Apc" column="indicator_value_apc" aggregator="avg" />
+
+    </Cube>
+
+    <Cube name="Binge Drinking">
+        <Annotation name="source_name">Centers for Disease Control &amp; Prevention</Annotation>
+        <Annotation name="source_description">Binge Drinking by county</Annotation>
+        <Annotation name="source_link">https://www.cdc.gov</Annotation>        
+        <Annotation name="dataset_name">PLACES: Local Data for Better Health (Census Tract Data)</Annotation>
+        <Annotation name="dataset_description">Percent of adults reporting binge or heavy drinking</Annotation>
+        <Annotation name="dataset_link">https://www.cdc.gov/places/index.html</Annotation>
+
+        <Table name="binge_drinking" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage First Quartile" column="indicator_pct_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Percentage Third Quartile" column="indicator_pct_3rd_quartile" aggregator="avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="Primary Care Workforce">
+        <Annotation name="source_name">U.N.C. Cecil G. Sheps Center for Health Services Research</Annotation>
+        <Annotation name="source_description">Primary care workforce (primary_care_workforce_per_1500) by county</Annotation>
+        <Annotation name="source_link">https://www.shepscenter.unc.edu/</Annotation>        
+        <Annotation name="dataset_name">N.C. Health Profession Data System (Sheps Health Workforce NC Data)</Annotation>
+        <Annotation name="dataset_description">Primary care workforce as a ratio of the number of full-time equivalent primary care clinicians to county population</Annotation>
+        <Annotation name="dataset_link">https://nchealthworkforce.unc.edu/downloaddata/</Annotation>
+
+        <Table name="primary_care_workforce" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="Short Term Suspensions">
+        <Annotation name="source_name">N.C. Department of Public Instruction</Annotation>
+        <Annotation name="source_description">Short term suspensions by county</Annotation>
+        <Annotation name="source_link">https://www.dpi.nc.gov/</Annotation>        
+        <Annotation name="dataset_name">Discipline, ALP and Dropout Annual Reports (Suspension Tables)</Annotation>
+        <Annotation name="dataset_description">Number of out-of-school short-term suspensions in educational facilities for all grades per 10 students</Annotation>
+        <Annotation name="dataset_link">https://www.dpi.nc.gov/data-reports/dropout-and-discipline-data/discipline-alp-and-dropout-annual-reports</Annotation>
+
+        <Table name="short_term_suspensions" primary_key="county_id" />
+
+        <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">African American</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">Multiracial</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Apc" column= "indicator_pct_apc" aggregator= "avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="Tobacco Use">
+        <Annotation name="source_name">Centers for Disease Control &amp; Prevention</Annotation>
+        <Annotation name="source_description">Tobacco Use by tract</Annotation>
+        <Annotation name="source_link">https://www.cdc.gov</Annotation>        
+        <Annotation name="dataset_name">PLACES: Local Data for Better Health (Census Tract Data)</Annotation>
+        <Annotation name="dataset_description">Percent of youth and adults reporting current use of e-cigarettes, cigarettes, cigars, smokeless tobacco, pipes, and/or hookah</Annotation>
+        <Annotation name="dataset_link">https://www.cdc.gov/places/index.html</Annotation>
+
+        <Table name="tobacco_use" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage First Quartile" column="indicator_pct_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Percentage Third Quartile" column="indicator_pct_3rd_quartile" aggregator="avg" />
+        <Measure name="Indicator Target" column= "hnc_target" aggregator= "avg" />
+
+    </Cube>
+
+    <Cube name="Sugar Sweetened Beverages">
+        <Annotation name="source_name">Novant Health New Hanover Regional Medical Center</Annotation>
+        <Annotation name="source_description">Sugar Sweetened Beverages by County</Annotation>
+        <Annotation name="source_link">https://www.nhrmc.org/</Annotation>        
+        <Annotation name="dataset_name">Diabetes Patient Registry (Aggregate Census Tract Data)</Annotation>
+        <Annotation name="dataset_description">Percent of youth and adults reporting consumption of one or more sugar- sweetened beverages (SSBs) per day</Annotation>
+
+        <Table name="sugar_sweetened_beverages" primary_key="tract_id" />
+
+        <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
+
+        <Dimension name="Year" foreign_key="year">
+            <Hierarchy name="Year">
+                <Level name="Year" key_column="year" key_type="nontext" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
+            <Hierarchy name="Cape Fear Member" primary_key="id">
+                <InlineTable alias="dim_cape_fear_member">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">Not a member</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Member</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">0</Value>
+                        <Value column="name">No aggregated data</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Aggregated data</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Gender" foreign_key="gender_id">
+            <Hierarchy name="Gender" primary_key="id">
+                <InlineTable alias="dim_gender">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Male</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Female</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Gender" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Race" foreign_key="race_id">
+            <Hierarchy name="Race" primary_key="id">
+                <InlineTable alias="dim_race">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">American Indian or Alaskan Native</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Asian</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">5</Value>
+                        <Value column="name">Black</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">7</Value>
+                        <Value column="name">Hawaiian Native or Pacific Islander</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">10</Value>
+                        <Value column="name">White</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">12</Value>
+                        <Value column="name">Other</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">14</Value>
+                        <Value column="name">Biracial</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">99</Value>
+                        <Value column="name">Unknown</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Race" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Ethnicity" foreign_key="ethnicity_id">
+            <Hierarchy name="Ethnicity" primary_key="id">
+                <InlineTable alias="dim_ethnicity">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">Non-Hispanic</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Unknown</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">9</Value>
+                        <Value column="name">All</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Ethnicity" key_column="id" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="Indicator Count" column= "indicator_ct" aggregator= "sum" />
+        <Measure name="Indicator Total" column= "tot_ct" aggregator= "sum" />
+        <Measure name="Indicator Percentage" column= "indicator_pct" aggregator= "avg" />
+        <Measure name="Indicator Percentage Median" column= "indicator_pct_median" aggregator= "avg" />
+        <Measure name="Indicator Percentage First Quartile" column="indicator_pct_1st_quartile" aggregator="avg" />
+        <Measure name="Indicator Percentage Third Quartile" column="indicator_pct_3rd_quartile" aggregator="avg" />
+
+    </Cube>
+
 </Schema>
