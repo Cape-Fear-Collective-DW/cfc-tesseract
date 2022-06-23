@@ -2608,7 +2608,7 @@
 
         <Dimension name="Disease" foreign_key="disease_id">
             <Hierarchy name="Disease" primary_key="id">
-                <InlineTable alias="dim Disease">
+                <InlineTable alias="dim_disease">
                     <ColumnDef name="id" key_type="nontext" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
