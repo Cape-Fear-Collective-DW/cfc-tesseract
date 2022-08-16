@@ -3865,7 +3865,7 @@
         <Annotation name="dataset_name">Tobacco use</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
-        <Table name="tobacco_use" primary_key="tract_id" />
+        <Table name="tobacco_use" primary_key="tract_id" /> 
 
         <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
 
