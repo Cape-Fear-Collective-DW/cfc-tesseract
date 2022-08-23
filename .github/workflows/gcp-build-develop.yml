@@ -10,7 +10,6 @@ jobs:
   # builds the docker image via cloud build
   build:
     name: Build Docker Image into Artifact Registry
-    environment: develop_environment
     uses: ./.github/workflows/gcp-build-to-registry.yml
     with:
       IMAGE_NAME: healthycommunities-api
