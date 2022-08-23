@@ -20,13 +20,9 @@ jobs:
   # builds the docker image via cloud build
   build:
     name: Build Development Docker Image
-    environment: develop_environment
     uses: ./.github/workflows/gcp-build-to-registry.yml
     with:
       IMAGE_NAME: ${{ env.IMAGE_NAME }}
       IMAGE_TAG: ${{ env.IMAGE_TAG }}
       IMAGE_ENVIRONMENT: "dev"
-    secrets:
-      GCP_ARTIFACT_REGISTRY_REPO_NAME: ${{ env.GCP_ARTIFACT_REGISTRY_REPO_NAME }}
-      GCP_PROJECT_ID: ${{ env.GCP_PROJECT_ID }}
-      GCP_SA_KEY: ${{ env.GCP_SA_KEY }}
+    secrets: inherit
