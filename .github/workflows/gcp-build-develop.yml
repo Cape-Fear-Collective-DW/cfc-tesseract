@@ -1,0 +1,32 @@
+name: "Build Development into Artifact Registry"
+
+# trigger the workflow when a push is committed to the develop branch
+on:
+  push:
+    branches:
+      - develop
+
+# environment variables used for development environment
+env:
+  # docker variables
+  IMAGE_NAME: "healthycommunities-api"
+  IMAGE_TAG: ${{ github.head_ref }}
+  # google cloud secrets
+  GCP_ARTIFACT_REGISTRY_REPO_NAME: ${{ secrets.GCP_ARTIFACT_REGISTRY_REPO_NAME }}
+  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+
+jobs:
+  # builds the docker image via cloud build
+  build:
+    name: Build Development Docker Image
+    environment: develop_environment
+    uses: Datawheel/.github/.github/workflow-workers/gcp-build-to-registry.yml@main
+    with:
+      IMAGE_NAME: ${{ env.IMAGE_NAME }}
+      IMAGE_TAG: ${{ env.IMAGE_TAG }}
+      IMAGE_ENVIRONMENT: "dev"
+    secrets:
+      GCP_ARTIFACT_REGISTRY_REPO_NAME: ${{ env.GCP_ARTIFACT_REGISTRY_REPO_NAME }}
+      GCP_PROJECT_ID: ${{ env.GCP_PROJECT_ID }}
+      GCP_SA_KEY: ${{ env.GCP_SA_KEY }}
