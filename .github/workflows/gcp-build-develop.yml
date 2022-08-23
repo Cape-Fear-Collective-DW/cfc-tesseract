@@ -12,7 +12,7 @@ jobs:
     name: Build Development Docker Image
     uses: ./.github/workflows/gcp-build-to-registry.yml
     with:
-      IMAGE_NAME: "healthycommunities-api"
-      IMAGE_TAG: ${{ github.head_ref }}
-      IMAGE_ENVIRONMENT: "dev"
+      IMAGE_NAME: healthycommunities-api
+      IMAGE_TAG: ${{ github.sha }}
+      IMAGE_ENVIRONMENT: dev
     secrets: inherit
