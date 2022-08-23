@@ -21,7 +21,7 @@ jobs:
   build:
     name: Build Development Docker Image
     environment: develop_environment
-    uses: ./.github/workflows/workers/gcp-build-to-registry.yml@main
+    uses: ./.github/workflows/workers/gcp-build-to-registry.yml
     with:
       IMAGE_NAME: ${{ env.IMAGE_NAME }}
       IMAGE_TAG: ${{ env.IMAGE_TAG }}
