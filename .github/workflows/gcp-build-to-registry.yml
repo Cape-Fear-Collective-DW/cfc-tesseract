@@ -39,7 +39,7 @@ jobs:
           gcloud builds submit \
             --quiet \
             --timeout=20m \
-            --tag us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REGISTRY_REPO_NAME }}/${{ input.IMAGE_NAME }}:${{ input.IMAGE_TAG }}
+            --tag us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REGISTRY_REPO_NAME }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
 
       - name: Add Latest Tag
         if: ${{ inputs.IMAGE_ENVIRONMENT }} == 'dev'
