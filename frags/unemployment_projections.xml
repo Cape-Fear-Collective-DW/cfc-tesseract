@@ -201,6 +201,10 @@
                         <Value column="id">19</Value>
                         <Value column="name">25 - 44</Value>
                     </Row>
+                    <Row>
+                        <Value column="id">99</Value>
+                        <Value column="name">All</Value>
+                    </Row>
                 </InlineTable>
                 <Level name="Age" key_column="id" name_column="name" />
             </Hierarchy>
