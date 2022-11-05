@@ -1,4 +1,4 @@
-<Schema name="cfc-database">
+<Schema name="cfc">
 
     <SharedDimension name="County Level" type="geo">
         <Hierarchy name="County Level">

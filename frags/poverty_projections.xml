@@ -1,30 +1,78 @@
 <Schema name="cfc" default_locale="en">
     <Cube name="Poverty Projections">
-        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_name">U.S. Census Bureau</Annotation>
         <Annotation name="source_description">Population living in poverty projections by county</Annotation>
-        <Annotation name="dataset_name">Population Living in Poverty</Annotation>
-        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
+        <Annotation name="source_link">https://www.census.gov/</Annotation>        
+        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S1701)</Annotation>
+        <Annotation name="dataset_description">Percentage of individuals with household incomes at or below 200% of the FPL</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S1701&amp;tid=ACSST5Y2019.S1701</Annotation>
 
         <Table name="poverty_projections" primary_key="county_id" />
 
         <DimensionUsage foreign_key="county_id" source="County Level" name="Geography" />
         <DimensionUsage foreign_key="date_id" source="Date Day" name="Date Day" />
 
-        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
-            <Hierarchy name="Cape Fear Member" primary_key="id">
-                <InlineTable alias="dim_cape_fear_member">
+        <Dimension name="Region" foreign_key="region_member">
+            <Hierarchy name="Region" primary_key="id">
+                <InlineTable alias="dim_region_member">
+                    <ColumnDef name="id" key_type="text" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">cf</Value>
+                        <Value column="name">Cape Fear</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">cm</Value>
+                        <Value column="name">Charlotte Metro</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">cp</Value>
+                        <Value column="name">Coastal Plain</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">mt</Value>
+                        <Value column="name">Mountains</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">pt</Value>
+                        <Value column="name">Piedmont Triad</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">sh</Value>
+                        <Value column="name">Sandhills</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">tw</Value>
+                        <Value column="name">Tidewater</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">ta</Value>
+                        <Value column="name">Triangle</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">state</Value>
+                        <Value column="name">State</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
                     <ColumnDef name="id" key_type="nontext" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
-                        <Value column="id">0</Value>
-                        <Value column="name">Not a member</Value>
+                        <Value column="id">1</Value>
+                        <Value column="name">State Level</Value>
                     </Row>
                     <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Member</Value>
+                        <Value column="id">2</Value>
+                        <Value column="name">County Level</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+                <Level name="Aggregated Data" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -89,7 +137,7 @@
                     </Row>
                     <Row>
                         <Value column="id">14</Value>
-                        <Value column="name">2+ races</Value>
+                        <Value column="name">Multiracial</Value>
                     </Row>
                     <Row>
                         <Value column="id">98</Value>
@@ -214,8 +262,6 @@
 
         <Measure name="Projection Lowerbound" column="projection_lowerbound" aggregator="avg" />
         <Measure name="Projection Upperbound" column="projection_upperbound" aggregator="avg" />
-        <Measure name="Indicator Percentage First Quartile" column="indicator_pct_1st_quartile" aggregator="avg" />
-        <Measure name="Indicator Percentage Third Quartile" column="indicator_pct_3rd_quartile" aggregator="avg" />
 
         <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
         <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />

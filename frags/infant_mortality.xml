@@ -1,9 +1,11 @@
 <Schema name="cfc" default_locale="en">
     <Cube name="Infant Mortality">
-        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_name">N.C. Department of Health &amp; Human Services</Annotation>
         <Annotation name="source_description">Infant mortality by county</Annotation>
-        <Annotation name="dataset_name">Infant Mortality</Annotation>
-        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
+        <Annotation name="source_link">https://www.ncdhhs.gov/</Annotation>        
+        <Annotation name="dataset_name">N.C. State Center for Health Statistics (Detailed Mortality Statistics)</Annotation>
+        <Annotation name="dataset_description">Rate of infant deaths per 1,000 live births</Annotation>
+        <Annotation name="dataset_link">https://schs.dph.ncdhhs.gov/interactive/query/dms/dms.cfm</Annotation>
 
         <Table name="infant_mortality" primary_key="county_id" />
 
@@ -15,21 +17,67 @@
             </Hierarchy>
         </Dimension>
 
-        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
-            <Hierarchy name="Cape Fear Member" primary_key="id">
-                <InlineTable alias="dim_cape_fear_member">
+        <Dimension name="Region" foreign_key="region_member">
+            <Hierarchy name="Region" primary_key="id">
+                <InlineTable alias="dim_region_member">
                     <ColumnDef name="id" key_type="nontext" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
-                        <Value column="id">0</Value>
-                        <Value column="name">Not a member</Value>
+                        <Value column="id">cf</Value>
+                        <Value column="name">Cape Fear</Value>
                     </Row>
                     <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Member</Value>
+                        <Value column="id">cm</Value>
+                        <Value column="name">Charlotte Metro</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">cp</Value>
+                        <Value column="name">Coastal Plain</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">mt</Value>
+                        <Value column="name">Mountains</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">pt</Value>
+                        <Value column="name">Piedmont Triad</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">sh</Value>
+                        <Value column="name">Sandhills</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">tw</Value>
+                        <Value column="name">Tidewater</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">ta</Value>
+                        <Value column="name">Triangle</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">state</Value>
+                        <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Aggregated Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Data" primary_key="id">
+                <InlineTable alias="dim_aggregated_data">
+                    <ColumnDef name="id" key_type="nontext" />
+                    <ColumnDef name="name" key_type="text" caption_set="en" />
+                    <Row>
+                        <Value column="id">1</Value>
+                        <Value column="name">State Level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">2</Value>
+                        <Value column="name">County Level</Value>
+                    </Row>
+                </InlineTable>
+                <Level name="Aggregated Data" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -63,64 +111,42 @@
             </Hierarchy>
         </Dimension>
 
-        <Dimension name="Health Situation" foreign_key="measure_id">
-            <Hierarchy name="Health Situation" primary_key="id">
-                <InlineTable alias="dim_measure">
+        <Dimension name="Disease" foreign_key="disease_id">
+            <Hierarchy name="Disease" primary_key="id">
+                <InlineTable alias="dim_disease">
                     <ColumnDef name="id" key_type="nontext" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Births</Value>
-                    </Row>
-                    <Row>
-                        <Value column="id">2</Value>
-                        <Value column="name">Deaths</Value>
-                    </Row>
-                </InlineTable>
-                <Level name="Health Situation" key_column="id" name_column="name" />
-            </Hierarchy>
-        </Dimension>
-
-        <Dimension name="Health Cause" foreign_key="category_id">
-            <Hierarchy name="Health Cause" primary_key="id">
-                <InlineTable alias="dim_category">
-                    <ColumnDef name="id" key_type="nontext" />
-                    <ColumnDef name="name" key_type="text" caption_set="en" />
-                    <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Healthy</Value>
-                    </Row>
                     <Row>
                         <Value column="id">2</Value>
                         <Value column="name">Infection</Value>
                     </Row>
                     <Row>
                         <Value column="id">3</Value>
-                        <Value column="name">Metabolic disease</Value>
+                        <Value column="name">Metabolic Disease</Value>
                     </Row>
                     <Row>
                         <Value column="id">4</Value>
-                        <Value column="name">Nervous disease</Value>
+                        <Value column="name">Nervous Disease</Value>
                     </Row>
                     <Row>
                         <Value column="id">5</Value>
-                        <Value column="name">Circulatory disease</Value>
+                        <Value column="name">Circulatory Disease</Value>
                     </Row>
                     <Row>
                         <Value column="id">6</Value>
-                        <Value column="name">Respiratory disease</Value>
+                        <Value column="name">Respiratory Disease</Value>
                     </Row>
                     <Row>
                         <Value column="id">7</Value>
-                        <Value column="name">Genitourinary disease</Value>
+                        <Value column="name">Genitourinary Disease</Value>
                     </Row>
                     <Row>
                         <Value column="id">8</Value>
-                        <Value column="name">Perinatal condition</Value>
+                        <Value column="name">Perinatal Condition</Value>
                     </Row>
                     <Row>
                         <Value column="id">9</Value>
-                        <Value column="name">Congenital abnormality</Value>
+                        <Value column="name">Congenital Abnormality</Value>
                     </Row>
                     <Row>
                         <Value column="id">10</Value>
@@ -128,7 +154,7 @@
                     </Row>
                     <Row>
                         <Value column="id">11</Value>
-                        <Value column="name">External coditions</Value>
+                        <Value column="name">External Conditions</Value>
                     </Row>
                     <Row>
                         <Value column="id">12</Value>
@@ -136,34 +162,43 @@
                     </Row>
                     <Row>
                         <Value column="id">13</Value>
-                        <Value column="name">Blood disease</Value>
+                        <Value column="name">Blood Disease</Value>
                     </Row>
                     <Row>
                         <Value column="id">14</Value>
-                        <Value column="name">Digestive disease</Value>
+                        <Value column="name">Digestive Disease</Value>
                     </Row>
                     <Row>
                         <Value column="id">15</Value>
-                        <Value column="name">Musculoskeletal disease</Value>
+                        <Value column="name">Musculoskeletal Disease</Value>
                     </Row>
                     <Row>
                         <Value column="id">16</Value>
-                        <Value column="name">Mental disorder</Value>
+                        <Value column="name">Mental Disorder</Value>
                     </Row>
                     <Row>
                         <Value column="id">17</Value>
-                        <Value column="name">Ear disease</Value>
+                        <Value column="name">Ear Disease</Value>
                     </Row>
                     <Row>
                         <Value column="id">18</Value>
-                        <Value column="name">Pregnancy related</Value>
+                        <Value column="name">Pregnancy Related</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">98</Value>
+                        <Value column="name">All</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Health Cause" key_column="id" name_column="name" />
+                <Level name="Disease" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
-        <Measure name="Total" column= "value" aggregator= "sum" />
+        <Measure name="Indicator Count" column="indicator_ct" aggregator="sum" />
+        <Measure name="Indicator Total" column="tot_ct" aggregator="sum" />
+        <Measure name="Indicator Percentage" column="indicator_pct" aggregator="avg" />
+        <Measure name="Indicator Percentage Median" column="indicator_pct_median" aggregator="avg" />
+        <Measure name="Indicator Percentage Apc" column="indicator_pct_apc" aggregator="avg" />
+        <Measure name="Indicator Target" column="hnc_target" aggregator="avg" />
 
     </Cube>
 </Schema>

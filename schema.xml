@@ -1317,6 +1317,10 @@
                         <Value column="id">9</Value>
                         <Value column="name">20 - 64</Value>
                     </Row>
+                    <Row>
+                        <Value column="id">99</Value>
+                        <Value column="name">All</Value>
+                    </Row>
                 </InlineTable>
                 <Level name="Age" key_column="id" name_column="name" />
             </Hierarchy>
@@ -1532,6 +1536,10 @@
                     <Row>
                         <Value column="id">19</Value>
                         <Value column="name">25 - 44</Value>
+                    <Row>
+                        <Value column="id">99</Value>
+                        <Value column="name">All</Value>
+                    </Row>
                     </Row>
                 </InlineTable>
                 <Level name="Age" key_column="id" name_column="name" />
@@ -2117,11 +2125,11 @@
     </Cube>
 
     <Cube name="Adults Diabetes">
-        <Annotation name="source_name">Novant Health New Hanover Regional Medical Center</Annotation>
-        <Annotation name="source_description">Sugar Sweetened Beverages by County</Annotation>
-        <Annotation name="source_link">https://www.nhrmc.org/</Annotation>        
-        <Annotation name="dataset_name">Diabetes Patient Registry (Aggregate Census Tract Data)</Annotation>
-        <Annotation name="dataset_description">Percent of youth and adults reporting consumption of one or more sugar- sweetened beverages (SSBs) per day</Annotation>
+        <Annotation name="source_name">Center for Disease Control and Prevention</Annotation>
+        <Annotation name="source_description">Adults Diabetes Prevalence by Tract</Annotation>
+        <Annotation name="source_link">https://www.cdc.gov</Annotation>        
+        <Annotation name="dataset_name">Local Data for Better Health (Census Tract Data)</Annotation>
+        <Annotation name="dataset_description">Model-based estimates of the prevalence of diabetes using self-reported sample surveys for respondents aged 18 and over who report ever been told by a doctor, nurse, or other health professional that they have diabetes other than diabetes during pregnancy</Annotation>
 
         <Table name="crude_diabetes_adults" primary_key="tract_id" />
 
@@ -2608,7 +2616,7 @@
 
         <Dimension name="Disease" foreign_key="disease_id">
             <Hierarchy name="Disease" primary_key="id">
-                <InlineTable alias="dim Disease">
+                <InlineTable alias="dim_disease">
                     <ColumnDef name="id" key_type="nontext" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
@@ -3865,7 +3873,7 @@
         <Annotation name="dataset_name">Tobacco use</Annotation>
         <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
 
-        <Table name="tobacco_use" primary_key="tract_id" />
+        <Table name="tobacco_use" primary_key="tract_id" /> 
 
         <DimensionUsage foreign_key="tract_id" source="Tract Level" name="Geography" />
 

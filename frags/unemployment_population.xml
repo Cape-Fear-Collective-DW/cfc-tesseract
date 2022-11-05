@@ -1,9 +1,11 @@
 <Schema name="cfc" default_locale="en">
     <Cube name="Unemployment Population">
-        <Annotation name="source_name">Cape Fear Collective</Annotation>
+        <Annotation name="source_name">U.S. Census Bureau</Annotation>
         <Annotation name="source_description">Unemployment population by tract</Annotation>
-        <Annotation name="dataset_name">Unemployment Population</Annotation>
-        <Annotation name="dataset_link">https://capefearcollective.org</Annotation>
+        <Annotation name="source_link">https://www.census.gov/</Annotation>        
+        <Annotation name="dataset_name">American Community Survey 5-Year Estimates Subject Tables (S2301)</Annotation>
+        <Annotation name="dataset_description">Percentage of individuals aged 16 and older who are in the labor force, but unemployed</Annotation>
+        <Annotation name="dataset_link">https://data.census.gov/cedsci/table?q=S2301&amp;tid=ACSST5Y2019.S2301</Annotation>
 
         <Table name="unemployment_population" primary_key="tract_id" />
 
@@ -15,39 +17,71 @@
             </Hierarchy>
         </Dimension>
 
-        <Dimension name="Cape Fear Member" foreign_key="cape_fear_member">
-            <Hierarchy name="Cape Fear Member" primary_key="id">
-                <InlineTable alias="dim_cape_fear_member">
-                    <ColumnDef name="id" key_type="nontext" />
+        <Dimension name="Region" foreign_key="region_member">
+            <Hierarchy name="Region" primary_key="id">
+                <InlineTable alias="dim_region_member">
+                    <ColumnDef name="id" key_type="text" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
-                        <Value column="id">0</Value>
-                        <Value column="name">Not a member</Value>
+                        <Value column="id">cf</Value>
+                        <Value column="name">Cape Fear</Value>
                     </Row>
                     <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Member</Value>
+                        <Value column="id">cm</Value>
+                        <Value column="name">Charlotte Metro</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">cp</Value>
+                        <Value column="name">Coastal Plain</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">mt</Value>
+                        <Value column="name">Mountains</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">pt</Value>
+                        <Value column="name">Piedmont Triad</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">sh</Value>
+                        <Value column="name">Sandhills</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">tw</Value>
+                        <Value column="name">Tidewater</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">ta</Value>
+                        <Value column="name">Triangle</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">state</Value>
+                        <Value column="name">State</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Cape Fear Member" key_column="id" name_column="name" />
+                <Level name="Region" key_column="id" key_type="text" name_column="name" />
             </Hierarchy>
         </Dimension>
 
-        <Dimension name="Aggregated Tract Data" foreign_key="aggregated_data">
-            <Hierarchy name="Aggregated Tract Data" primary_key="id">
+        <Dimension name="Aggregated Data" foreign_key="aggregated_data">
+            <Hierarchy name="Aggregated Data" primary_key="id">
                 <InlineTable alias="dim_aggregated_data">
                     <ColumnDef name="id" key_type="nontext" />
                     <ColumnDef name="name" key_type="text" caption_set="en" />
                     <Row>
-                        <Value column="id">0</Value>
-                        <Value column="name">No aggregated data</Value>
+                        <Value column="id">1</Value>
+                        <Value column="name">State Level</Value>
                     </Row>
                     <Row>
-                        <Value column="id">1</Value>
-                        <Value column="name">Aggregated data</Value>
+                        <Value column="id">2</Value>
+                        <Value column="name">County Level</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">3</Value>
+                        <Value column="name">Tract Level</Value>
                     </Row>
                 </InlineTable>
-                <Level name="Aggregated Tract Data" key_column="id" name_column="name" />
+                <Level name="Aggregated Data" key_column="id" name_column="name" />
             </Hierarchy>
         </Dimension>
 
@@ -163,6 +197,10 @@
                     <Row>
                         <Value column="id">9</Value>
                         <Value column="name">20 - 64</Value>
+                    </Row>
+                    <Row>
+                        <Value column="id">99</Value>
+                        <Value column="name">All</Value>
                     </Row>
                 </InlineTable>
                 <Level name="Age" key_column="id" name_column="name" />
