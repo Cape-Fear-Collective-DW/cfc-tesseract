@@ -1,0 +1,17 @@
+name: "Build Production into Artifact Registry"
+
+# trigger the workflow when a release is done
+on:
+  release:
+    types: [published]
+
+jobs:
+  # builds the docker image via cloud build
+  build:
+    name: Build Docker Image into Artifact Registry
+    uses: ./.github/workflows/gcp-build-to-registry.yml
+    with:
+      IMAGE_NAME: healthycommunities-api
+      IMAGE_TAG: production
+      IMAGE_ENVIRONMENT: "prod"
+    secrets: inherit
