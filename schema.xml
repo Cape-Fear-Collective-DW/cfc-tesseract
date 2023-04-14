@@ -3381,6 +3381,7 @@
         <Annotation name="source_link">https://www.nhrmc.org/</Annotation>        
         <Annotation name="dataset_name">Diabetes Patient Registry (Aggregate Census Tract Data)</Annotation>
         <Annotation name="dataset_description">Percent of youth and adults reporting consumption of one or more sugar- sweetened beverages (SSBs) per day</Annotation>
+        <Annotation name="dataset_link">https://www.cdc.gov/places/index.html</Annotation>
 
         <Table name="sugar_sweetened_beverages" primary_key="tract_id" />
 
