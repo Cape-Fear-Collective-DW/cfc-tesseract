@@ -74,6 +74,7 @@ ingress:
     nginx.org/proxy-buffers: "8 16k"
     nginx.org/proxy-buffer-size: "16k"
     nginx.org/proxy-busy-buffers-size: "64k"
+    nginx.org/rewrites: "serviceName=tesseract-api rewrite=/"
     nginx.org/location-snippets: |
       add_header Access-Control-Allow-Origin *;
   hosts:
