@@ -80,6 +80,6 @@ ingress:
         - /
         - /tesseract/
   tls:
-    - secretName: tesseract-api-ingress-tls
+    - secretName: tesseract-api-tls
       hosts: 
         - hcf.api.datawheel.us
