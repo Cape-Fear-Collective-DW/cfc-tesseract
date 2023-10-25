@@ -1,4 +1,4 @@
-FROM greenrhyno/tesseract-olap:v0.14.13
+FROM datawheelorg/tesseract:8a809348-commit
 
 ARG APP_ROOT /app
 
