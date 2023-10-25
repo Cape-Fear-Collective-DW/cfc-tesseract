@@ -69,20 +69,16 @@ ingress:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     acme.cert-manager.io/http01-edit-in-place: "true"
     ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.org/proxy-connect-timeout: "120s"
-    nginx.org/proxy-read-timeout: "120s"
-    nginx.org/proxy-buffers: "8 16k"
-    nginx.org/proxy-buffer-size: "16k"
-    nginx.org/proxy-busy-buffers-size: "64k"
+    nginx.org/proxy-connect-timeout: "90s"
     nginx.org/rewrites: "serviceName=tesseract-api rewrite=/"
     nginx.org/location-snippets: |
       add_header Access-Control-Allow-Origin *;
   hosts:
-    - host: cfc.api.datawheel.us
+    - host: dev.cfc.api.datawheel.us
       paths:
         - /
         - /tesseract/
   tls:
     - secretName: tesseract-api-ingress-tls
       hosts: 
-        - cfc.api.datawheel.us
+        - dev.cfc.api.datawheel.us
