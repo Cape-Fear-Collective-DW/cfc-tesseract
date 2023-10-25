@@ -74,11 +74,11 @@ ingress:
     nginx.org/location-snippets: |
       add_header Access-Control-Allow-Origin *;
   hosts:
-    - host: dev.cfc.api.datawheel.us
+    - host: hcf.api.datawheel.us
       paths:
         - /
         - /tesseract/
   tls:
     - secretName: tesseract-api-ingress-tls
       hosts: 
-        - dev.cfc.api.datawheel.us
+        - hcf.api.datawheel.us
