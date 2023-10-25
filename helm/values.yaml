@@ -81,6 +81,7 @@ ingress:
     - host: cfc.api.datawheel.us
       paths:
         - /
+        - /tesseract/
   tls:
     - secretName: tesseract-api-ingress-tls
       hosts: 
