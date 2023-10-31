@@ -71,7 +71,7 @@ ingress:
     ingress.kubernetes.io/ssl-redirect: "true"
     nginx.org/proxy-connect-timeout: "90s"
     nginx.org/proxy-read-timeout: "90s"
-    nginx.org/rewrites: "serviceName=tesseract-api rewrite=/"
+    nginx.org/rewrites: "serviceName=tesseract-api rewrite=/;serviceName=tesseract-ui rewrite=/"
     nginx.org/location-snippets: |
       add_header Access-Control-Allow-Origin *;
   hosts:
@@ -83,3 +83,11 @@ ingress:
     - secretName: tesseract-api-ingress-tls
       hosts: 
         - cfc.api.datawheel.us
+
+tesseract-ui:
+  enabled: true
+  fullnameOverride: tesseract-ui
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 80

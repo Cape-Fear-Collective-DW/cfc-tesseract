@@ -40,4 +40,13 @@ spec:
                   number: {{ $servicePort }}
           {{- end }}
     {{- end }}
+    {{- if .Values.tesseract-ui.enabled }}
+          - path: /ui/
+            pathType: Prefix
+            backend:
+              service:
+                name: {{.Values.tesseract-ui.fullnameOverride}}
+                port:
+                  number: {{ .Values.tesseract-ui.service.port }}
+    {{- end }}
 {{- end }}
