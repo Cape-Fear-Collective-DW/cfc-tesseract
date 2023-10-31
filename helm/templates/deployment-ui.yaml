@@ -1,12 +1,13 @@
+{{- if .Values.tesseract-ui.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{.Values.fullnameOverride}}
+  name: {{.Values.tesseract-ui.fullnameOverride}}
   labels:
     {{- include "chart-app.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.tesseract-ui.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
@@ -24,34 +25,27 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{.Values.fullnameOverride}}
+      serviceAccountName: {{.Values.tesseract-ui.fullnameOverride}}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{.Values.fullnameOverride}}
+        - name: {{.Values.tesseract-ui.fullnameOverride}}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "datawheelorg/tesseract-ui:latest"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          envFrom:
-            - configMapRef:
-                name: {{.Values.fullnameOverride}}
-                optional: true
-            - secretRef:
-                name: {{.Values.fullnameOverride}}
-                optional: true
-          env:
-            {{- range .Values.env }}
-            - name: "{{ .name }}"
-              value: "{{ .value }}"
-            {{- end }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.tesseract-ui.service.port }}
               protocol: TCP
-          livenessProbe:
-            {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
-            {{- toYaml .Values.readinessProbe | nindent 12 }}
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            httpGet:
+              path: /
+              port: {{ .Values.tesseract-ui.service.port }}
+            initialDelaySeconds: 30
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.tesseract-ui.service.port }}
+            initialDelaySeconds: 30
+{{- end }}
