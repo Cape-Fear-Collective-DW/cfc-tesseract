@@ -55,8 +55,8 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
----
 {{- if .Values.tesseract-ui.enabled }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:

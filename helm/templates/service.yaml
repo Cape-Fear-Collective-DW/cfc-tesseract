@@ -13,8 +13,8 @@ spec:
       name: http
   selector:
     {{- include "chart-app.selectorLabels" . | nindent 4 }}
----
 {{- if .Values.tesseract-ui.enabled }}
+---
 apiVersion: v1
 kind: Service
 metadata:
