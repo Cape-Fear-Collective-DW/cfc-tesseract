@@ -1,6 +1,8 @@
 {{- if .Values.ingress.enabled }}
 {{- $fullName := include "chart-app.fullname" . -}}
+{{- $uiFullName := .Values.tesseractUI.fullnameOverride -}}
 {{- $servicePort := .Values.service.port -}}
+{{- $uiServicePort := .Values.tesseractUI.service.port -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -45,8 +47,8 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{.Values.tesseractUI.fullnameOverride}}
+                name: {{ $uiFullName }}
                 port:
-                  number: {{ .Values.tesseractUI.service.port }}
+                  number: {{ $uiServicePort }}
     {{- end }}
 {{- end }}
