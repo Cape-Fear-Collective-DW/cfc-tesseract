@@ -84,7 +84,7 @@ ingress:
       hosts: 
         - cfc.api.datawheel.us
 
-tesseract-ui:
+tesseractUI:
   enabled: true
   fullnameOverride: tesseract-ui
   replicaCount: 1
