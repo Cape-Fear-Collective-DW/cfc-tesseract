@@ -42,15 +42,15 @@ spec:
               path: /
               port: {{ .Values.tesseractUI.service.port }}
             failureThreshold: 3
-            initialDelaySeconds: 40
-            periodSeconds: 20
-            timeoutSeconds: 20
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
           livenessProbe:
             httpGet:
               path: /
               port: {{ .Values.tesseractUI.service.port }}
             failureThreshold: 3
-            initialDelaySeconds: 40
-            periodSeconds: 20
-            timeoutSeconds: 20
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
 {{- end }}
