@@ -41,10 +41,16 @@ spec:
             httpGet:
               path: /
               port: {{ .Values.tesseractUI.service.port }}
-            initialDelaySeconds: 30
+            failureThreshold: 3
+            initialDelaySeconds: 40
+            periodSeconds: 20
+            timeoutSeconds: 20
           livenessProbe:
             httpGet:
               path: /
               port: {{ .Values.tesseractUI.service.port }}
-            initialDelaySeconds: 30
+            failureThreshold: 3
+            initialDelaySeconds: 40
+            periodSeconds: 20
+            timeoutSeconds: 20
 {{- end }}
