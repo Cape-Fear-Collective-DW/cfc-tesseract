@@ -32,7 +32,7 @@ spec:
         - name: {{.Values.tesseractUI.fullnameOverride}}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "datawheelorg/tesseractUI:latest"
+          image: "datawheelorg/tesseract-ui:latest"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
