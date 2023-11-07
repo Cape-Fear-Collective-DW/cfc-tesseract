@@ -81,7 +81,7 @@ data:
 
       # Command to clear complete cache for one URL
       if (req.method == "PURGE") {
-        if (req.http.X-Varnish-Token != "GgcJgbZ9mvw1kP60CcIM") {
+        if (req.http.X-Varnish-Token != "VY7qdZX2x2qN7ZnG28Ne") {
           return(synth(405, "User not allowed to PURGE."));
         }
         return(purge);
@@ -89,7 +89,7 @@ data:
 
       # Command to clear complete cache for all URLs and all sub-domains
       if (req.method == "XCGFULLBAN") {
-        if (req.http.X-Varnish-Token != "GgcJgbZ9mvw1kP60CcIM") {
+        if (req.http.X-Varnish-Token != "VY7qdZX2x2qN7ZnG28Ne") {
           return(synth(405, "User not allowed to BAN."));
         }
         ban("req.http.host ~ .*");
