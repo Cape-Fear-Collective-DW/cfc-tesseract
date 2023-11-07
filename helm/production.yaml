@@ -64,12 +64,12 @@ secrets:
   TESSERACT_DATABASE_URL: Y2xpY2tob3VzZTovL3JlYWRvbmx5Olp0Zk9BTjFEamhhYkNKZzBqZ2Y1QDM0LjY3LjIwLjE1NTo5MDAwL2hjZl9kYl9wcm9kP3Bvb2xfbWF4PTMwMCZrZWVwYWxpdmU9MTIwcwo=
 
 tesseractUI:
-  enabled: true
-  fullnameOverride: tesseract-ui
-  replicaCount: 1
-  service:
-    type: ClusterIP
-    port: 80
+  enabled: false
+  # fullnameOverride: tesseract-ui
+  # replicaCount: 1
+  # service:
+  #   type: ClusterIP
+  #   port: 80
 
 ingress:
   enabled: false
