@@ -18,7 +18,7 @@ kubectl create -n production rolebinding kube-httpcache --clusterrole=kube-httpc
 
 1. Apply the Varnish configuration configmap: `kubectl apply -f config.yaml`
 2. Deploy Varnish deployments: `kubectl apply -f deploy.yaml`
-3. Create Ingress to point to varnish service
+3. Create Ingress to point to varnish service `kubectl apply -f ingress.yaml`
 
 # Docs
 
