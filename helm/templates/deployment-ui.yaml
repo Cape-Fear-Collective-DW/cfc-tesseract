@@ -1,0 +1,56 @@
+{{- if .Values.tesseractUI.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.tesseractUI.fullnameOverride}}
+  labels:
+    {{- include "chart-app.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.tesseractUI.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "chart-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "chart-app.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{.Values.tesseractUI.fullnameOverride}}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "datawheelorg/tesseract-ui:latest"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.tesseractUI.service.port }}
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.tesseractUI.service.port }}
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.tesseractUI.service.port }}
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+{{- end }}
