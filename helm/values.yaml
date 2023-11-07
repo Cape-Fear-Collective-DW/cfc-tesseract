@@ -15,13 +15,11 @@ autoscaling:
 
 resources:
   requests:
-    cpu: 1
-    memory: 16Gi
-    ephemeral-storage: 10Mi
+    cpu: 500m
+    memory: 2Gi
   limits:
-    cpu: 1
-    memory: 16Gi
-    ephemeral-storage: 10Mi
+    cpu: 500m
+    memory: 2Gi
 
 livenessProbe:
   failureThreshold: 3
