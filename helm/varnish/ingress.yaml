@@ -1,0 +1,44 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: varnish-backend-ingress
+  namespace: production
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.org/proxy-buffer-size: "16k"
+    nginx.org/proxy-buffers: "8 16k"
+    nginx.org/proxy-busy-buffers-size: "64k"
+    nginx.org/proxy-connect-timeout: "240s"
+    nginx.org/proxy-read-timeout: "240s"
+    nginx.org/location-snippets: |
+      add_header Access-Control-Allow-Origin 'https://healthycommunitiesnc.org';
+      
+      proxy_pass_header         Access-Control-Allow-Origin;
+      proxy_pass_header         Access-Control-Allow-Methods;
+      proxy_pass_header         Access-Control-Allow-Headers;
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.healthycommunitiesnc.org
+    secretName: varnish-backend-ingress-tls
+  rules:
+  - host: api.healthycommunitiesnc.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: tesseract-api-cache
+            port:
+              number: 80
+      - path: /tesseract/
+        pathType: Prefix
+        backend:
+          service:
+            name: tesseract-api-cache
+            port:
+              number: 80
