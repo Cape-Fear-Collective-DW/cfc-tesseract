@@ -13,7 +13,7 @@ metadata:
     nginx.org/proxy-connect-timeout: "240s"
     nginx.org/proxy-read-timeout: "240s"
     nginx.org/location-snippets: |
-      add_header Access-Control-Allow-Origin '*';
+      add_header Access-Control-Allow-Origin *;
       
       proxy_pass_header         Access-Control-Allow-Origin;
       proxy_pass_header         Access-Control-Allow-Methods;
