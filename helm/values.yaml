@@ -86,7 +86,7 @@ ingress:
         - cfc.api.datawheel.us
 
 tesseractUI:
-  enabled: true
+  enabled: false
   fullnameOverride: tesseract-ui
   replicaCount: 1
   service:
